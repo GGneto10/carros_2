@@ -23,6 +23,6 @@ class Carro(models.Model):
     #esse (blank=True, null=True )dão a permissão para deixar em branco.]
     
     def __str__(self):
-        return self.model
+        return self.modelo
 
 
