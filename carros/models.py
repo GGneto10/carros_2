@@ -18,9 +18,8 @@ class Carro(models.Model):
     placa = models.CharField(max_length=10, blank=True, null=True) 
     valor = models.FloatField(blank=True, null=True)
     km = models.IntegerField(blank=True, null=True)
-    #foto = models.ImageField(upload_to='cars/', blank=True, null=True)
-    #bio = models.TextField(blank=True, null=True)
-    #esse (blank=True, null=True )dão a permissão para deixar em branco.]
+    foto = models.ImageField(upload_to='lista/', blank=True, null=True)
+    
     
     def __str__(self):
         return self.modelo

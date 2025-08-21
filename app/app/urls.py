@@ -17,8 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from carros.views import CarrosListView
+from django.views.generic import RedirectView
+from django.conf import settings
+from django.conf.urls.static import static
 
+# URL patterns for the app project
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('lista/', CarrosListView.as_view(), name='lista_carros'),
-]
+    path('', RedirectView.as_view(url='lista/')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

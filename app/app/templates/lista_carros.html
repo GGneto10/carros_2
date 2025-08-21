@@ -160,12 +160,14 @@
     .car-image {
       width: 100%;
       height: 200px;
-      object-fit: cover;
+      overflow: hidden;
       background-color: #f0f0f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #888;
+    }
+
+    .car-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .car-info {
@@ -271,6 +273,14 @@
       color: #888;
     }
 
+    .no-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #888;
+    }
+
     @media (max-width: 768px) {
       .filters {
         flex-direction: column;
@@ -323,7 +333,13 @@
         {% if carros %}
           {% for carro in carros %}
           <div class="car-card">
-            <div class="car-image">Imagem do {{ carro.modelo }}</div>
+            <div class="car-image">
+              {% if carro.foto %}
+                <img src="{{ carro.foto.url }}" alt="{{ carro.marca }} {{ carro.modelo }}">
+              {% else %}
+                <div class="no-image">Imagem não disponível</div>
+              {% endif %}
+            </div>
             <div class="car-info">
               <h3 class="car-title">{{ carro.marca }} {{ carro.modelo }}</h3>
               <div class="car-details">
