@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from carros.views import CarrosListView
+from carros.views import CarrosListView, CarrosDetailView
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -26,4 +26,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('lista/', CarrosListView.as_view(), name='lista_carros'),
     path('', RedirectView.as_view(url='lista/')),
+    path('carros/detalhes/<int:pk>/', CarrosDetailView.as_view(), name='detalhes_carros'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

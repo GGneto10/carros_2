@@ -1,5 +1,5 @@
 from carros.models import Carro, Marca
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.db.models import Q
 
 class CarrosListView(ListView): 
@@ -23,3 +23,7 @@ class CarrosListView(ListView):
             Q(placa__icontains=search)
         ).order_by('modelo') # Filtra em múltiplos campos usando Q objects para OR conditions
         return carros 
+    
+class CarrosDetailView(DetailView):
+    model = Carro
+    template_name = 'detalhes_carros.html'

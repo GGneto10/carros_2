@@ -12,6 +12,6 @@ class CarModelForm(forms.ModelForm):
             if km < 0:
                 self.add_error('km', 'Quilometragem não pode ser negativa.')
         elif km > 500000:
-            self.add_error('km', 'Quilometragem acima do possível a ser vendido.')
+                self.add_error('km', 'Quilometragem acima do possível a ser vendido.')
         return km
        
