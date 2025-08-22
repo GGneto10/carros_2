@@ -1,428 +1,224 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cangaro Multimarcas - Lista de Carros</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    /* Seus estilos CSS permanecem os mesmos */
+{% extends "base.html" %}
+
+{% block content %}
+<style>
     :root {
-      --bg-color: #fff;
-      --text-color: #333;
-      --header-bg: #ff4081;  /* Rosa */
-      --nav-bg: #ff4081;     /* Rosa */
-      --nav-hover: #f8bbd0;  /* Rosa claro */
-      --nav-active: #e91e63;  /* Rosa escuro */
-      --nav-active-hover: #ad1457;
-      --footer-bg: #f5f5f5;
-      --footer-text: #333;
-      --accent-color: #e91e63; /* Rosa escuro para destaques */
-      --card-bg: #fff;
-      --card-border: #e0e0e0;
-      --card-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        --primary-color: #d32f2f;        /* Vermelho */
+        --hover-color: #b71c1c;          /* Vermelho escuro */
+        --text-color: #212121;           /* Preto quase puro */
+        --light-bg: #f5f5f5;             /* Cinza muito claro */
+        --card-bg: #ffffff;              /* Branco */
+        --default-car-img: linear-gradient(135deg, #e0e0e0 0%, #9e9e9e 100%); /* Gradiente cinza */
+        --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     .dark-mode {
-      --bg-color: #121212;
-      --text-color: #e6e6e6;
-      --header-bg: #b71c1c;    /* Vermelho escuro */
-      --nav-bg: #b71c1c;       /* Vermelho escuro */
-      --nav-hover: #424242;    /* Cinza escuro */
-      --nav-active: #7b1fa2;   /* Roxo para contraste */
-      --nav-active-hover: #6a1b9a;
-      --footer-bg: #1a1a1a;    /* Quase preto */
-      --footer-text: #e6e6e6;
-      --accent-color: #f44336; /* Vermelho para destaques */
-      --card-bg: #1e1e1e;
-      --card-border: #333;
-      --card-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        --primary-color: #f44336;        /* Vermelho mais vibrante no escuro */
+        --hover-color: #ff6659;          /* Vermelho mais claro para hover */
+        --text-color: #e0e0e0;           /* Cinza claro para texto */
+        --light-bg: #121212;             /* Preto quase puro para fundo */
+        --card-bg: #1e1e1e;              /* Cinza muito escuro para cards */
+        --default-car-img: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%); /* Gradiente preto */
+        --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     }
 
-    body {
-      font-family: 'Poppins', 'Roboto', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      margin: 0;
-      padding: 0;
-      transition: all 0.3s ease;
+    .car-list-container {
+        background-color: var(--light-bg);
+        min-height: calc(100vh - 150px);
+        padding: 30px 0;
     }
 
-    header {
-      background-color: var(--header-bg);
-      color: #fff;
-      text-align: center;
+    .search-container {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto 30px;
+        max-width: 800px;
+        padding: 0 20px;
     }
 
-    footer {
-      background-color: var(--footer-bg);
-      color: var(--footer-text);
-      padding: 20px;
-      text-align: center;
+    .search-form {
+        display: flex;
+        width: 100%;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
     }
 
-    nav {
-      background-color: var(--nav-bg);
-      color: #fff;
-      height: 50px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 20px;
+    .search-input {
+        flex: 1;
+        padding: 14px 20px;
+        border: none;
+        font-size: 16px;
+        background-color: var(--card-bg);
+        color: var(--text-color);
     }
 
-    nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      align-items: center;
+    .search-input:focus {
+        outline: none;
     }
 
-    nav ul li {
-      margin: 0 10px;
+    .search-button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0 25px;
+        cursor: pointer;
+        transition: background-color 0.3s;
     }
 
-    nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 16px;
-      padding: 15px;
-      transition: all 0.3s ease;
-      border-radius: 4px;
+    .search-button:hover {
+        background-color: var(--hover-color);
     }
 
-    nav ul li a:hover {
-      background-color: var(--nav-hover);
-    }
-
-    nav ul li.active a {
-      background-color: var(--nav-active);
-    }
-
-    nav ul li.active a:hover {
-      background-color: var(--nav-active-hover);
-    }
-
-    .theme-toggle {
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-      font-size: 16px;
-      padding: 10px;
-      border-radius: 4px;
-      margin-left: 10px;
-    }
-
-    .theme-toggle:hover {
-      background-color: var(--nav-hover);
-    }
-
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      margin-right: 20px;
-    }
-
-    /* Estilos específicos para a lista de carros */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    .page-title {
-      text-align: center;
-      margin-bottom: 30px;
-      color: var(--accent-color);
-    }
-
-    .cars-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
+    .car-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
     }
 
     .car-card {
-      background-color: var(--card-bg);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: var(--card-shadow);
-      border: 1px solid var(--card-border);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: var(--card-bg);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s, box-shadow 0.3s;
+        text-decoration: none;
+        display: block;
+        color: inherit;
     }
 
     .car-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     }
 
-    .car-image {
-      width: 100%;
-      height: 200px;
-      overflow: hidden;
-      background-color: #f0f0f0;
+    .car-img-container {
+        height: 200px;
+        position: relative;
+        overflow: hidden;
     }
 
-    .car-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .car-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+    }
+
+    .car-card:hover .car-img {
+        transform: scale(1.05);
+    }
+
+    .no-photo {
+        width: 100%;
+        height: 100%;
+        background: var(--default-car-img);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #777;
+        font-size: 3rem;
+    }
+
+    .dark-mode .no-photo {
+        color: #aaa;
     }
 
     .car-info {
-      padding: 20px;
+        padding: 20px;
     }
 
     .car-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin: 0 0 10px;
-      color: var(--accent-color);
+        font-size: 1.3rem;
+        margin: 0 0 5px;
+        color: var(--primary-color);
     }
 
     .car-details {
-      margin-bottom: 15px;
-    }
-
-    .car-detail {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 5px;
+        margin-bottom: 10px;
+        color: var(--text-color);
+        font-size: 0.9rem;
     }
 
     .car-price {
-      font-size: 20px;
-      font-weight: bold;
-      color: var(--accent-color);
-      text-align: right;
+        font-weight: bold;
+        color: #2ecc71; /* Mantido o verde para o preço (contraste com o vermelho) */
+        font-size: 1.2rem;
+        margin-top: 10px;
     }
 
-    .car-actions {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 15px;
+    .no-results {
+        text-align: center;
+        grid-column: 1 / -1;
+        padding: 40px;
+        color: var(--text-color);
     }
 
-    .btn {
-      padding: 8px 16px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: background-color 0.3s ease;
-    }
-
-    .btn-primary {
-      background-color: var(--accent-color);
-      color: white;
-    }
-
-    .btn-primary:hover {
-      opacity: 0.9;
-    }
-
-    .btn-secondary {
-      background-color: transparent;
-      border: 1px solid var(--accent-color);
-      color: var(--accent-color);
-    }
-
-    .btn-secondary:hover {
-      background-color: var(--accent-color);
-      color: white;
-    }
-
-    .filters {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .search-box {
-      flex: 1;
-      min-width: 250px;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
-
-    .filter-select {
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      background-color: white;
-    }
-
-    .dark-mode .filter-select,
-    .dark-mode .search-box input {
-      background-color: #333;
-      color: white;
-      border-color: #555;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 40px;
-      color: #888;
-    }
-
-    .no-image {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      color: #888;
+    .no-results-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        color: var(--primary-color);
     }
 
     @media (max-width: 768px) {
-      .filters {
-        flex-direction: column;
-      }
-      
-      .search-box, .filter-select {
-        width: 100%;
-      }
+        .car-grid {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        }
+        
+        .search-form {
+            flex-direction: column;
+            border-radius: 10px;
+        }
+        
+        .search-input {
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .search-button {
+            padding: 14px;
+            border-radius: 0 0 10px 10px;
+        }
     }
-  </style>
-</head>
-<body>
-  <header>
-    <nav>
-      <ul>
-        <li class="logo">Cangaro Multimarcas</li>
-        <li><a href="#">Home</a></li>
-        <li class="active"><a href="#">Carros</a></li>
-        <li><a href="#">Sobre</a></li>
-        <li><a href="#">Contato</a></li>
-      </ul>
-      <button class="theme-toggle" id="themeToggle">🌙</button>
-    </nav>
-  </header>
+</style>
 
-  <main>
-    <div class="container">
-      <h1 class="page-title">Nossa Frota de Veículos</h1>
-      
-      <div class="filters">
-        <div class="search-box">
-          <form method="GET" action="">
-            <input type="text" name="search" placeholder="Buscar carro por modelo, marca..." value="{{ request.GET.search }}">
-          </form>
-        </div>
-        <select class="filter-select">
-          <option value="">Todas as Marcas</option>
-          <!-- As opções serão preenchidas dinamicamente -->
-        </select>
-        <select class="filter-select">
-          <option value="">Todos os Preços</option>
-          <option value="0-30000">Até R$ 30.000</option>
-          <option value="30000-50000">R$ 30.000 - R$ 50.000</option>
-          <option value="50000-80000">R$ 50.000 - R$ 80.000</option>
-          <option value="80000+">Acima de R$ 80.000</option>
-        </select>
-      </div>
-      
-      <div class="cars-grid" id="cars-container">
-        {% if carros %}
-          {% for carro in carros %}
-          <div class="car-card">
-            <div class="car-image">
-              {% if carro.foto %}
-                <img src="{{ carro.foto.url }}" alt="{{ carro.marca }} {{ carro.modelo }}">
-              {% else %}
-                <div class="no-image">Imagem não disponível</div>
-              {% endif %}
-            </div>
-            <div class="car-info">
-              <h3 class="car-title">{{ carro.marca }} {{ carro.modelo }}</h3>
-              <div class="car-details">
-                <div class="car-detail">
-                  <span>Ano/Modelo:</span>
-                  <span>{{ carro.ano_fabricacao }}/{{ carro.ano_modelo }}</span>
-                </div>
-                <div class="car-detail">
-                  <span>KM:</span>
-                  <span>{{ carro.km|floatformat:0 }}</span>
-                </div>
-                <div class="car-detail">
-                  <span>Placa:</span>
-                  <span>{{ carro.placa|default:"Não informada" }}</span>
-                </div>
-              </div>
-              <div class="car-price">R$ {{ carro.valor|floatformat:2 }}</div>
-              <div class="car-actions">
-                <button class="btn btn-primary" onclick="window.location.href='{% url 'detalhes_carros' carro.id %}'">Detalhes</button> <!-- Não entendi o pq do alerta. -->
-                <button class="btn btn-secondary">Favorito</button>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-        {% else %}
-          <div class="empty-state">
-            <p>Nenhum carro encontrado.</p>
-          </div>
-        {% endif %}
-      </div>
+<div class="car-list-container">
+    <div class="search-container">
+        <form method="GET" action="{% url 'lista_carros' %}" class="search-form">
+            <input type="text" name="search" class="search-input" 
+                   placeholder="Buscar por modelo, marca ou ano..." 
+                   value="{{ request.GET.search }}">
+            <button type="submit" class="search-button">Buscar</button>
+        </form>
     </div>
-  </main>
 
-  <footer>
-    <p>&copy; 2024 Cangaro Multimarcas - Todos os direitos reservados</p>
-    <p>Telefone: (00) 00000-0000 | Email: ggneto1234@gmail.com</p>
-  </footer>
-
-  <script>
-    // Verifica o tema salvo no localStorage
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    
-    // Aplica o tema salvo
-    if (currentTheme === 'dark') {
-      document.body.classList.add('dark-mode');
-      document.getElementById('themeToggle').textContent = '☀️';
-    }
-
-    // Alternar tema
-    document.getElementById('themeToggle').addEventListener('click', function() {
-      document.body.classList.toggle('dark-mode');
-      
-      const isDark = document.body.classList.contains('dark-mode');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      
-      this.textContent = isDark ? '☀️' : '🌙';
-    });
-
-    // Adicionar event listeners aos botões
-    document.querySelectorAll('.btn-primary').forEach(button => {
-      button.addEventListener('click', function() {
-        // Esta função não é mais necessária aqui pois o redirecionamento
-        // agora é feito diretamente no onclick do botão
-      });
-    });
-
-    document.querySelectorAll('.btn-secondary').forEach(button => {
-      button.addEventListener('click', function() {
-        this.textContent = this.textContent === 'Favorito' ? 'Favoritado ✓' : 'Favorito';
-      });
-    });
-
-    // Busca automática ao digitar
-    const searchInput = document.querySelector('input[name="search"]');
-    let searchTimeout;
-    
-    searchInput.addEventListener('input', function() {
-      clearTimeout(searchTimeout);
-      searchTimeout = setTimeout(() => {
-        this.form.submit();
-      }, 500);
-    });
-  </script>
-</body>
-</html>
+    <div class="car-grid">
+        {% if carros %}
+            {% for carro in carros %}
+                <a href="{% url 'detalhes_carros' carro.id %}" class="car-card">
+                    <div class="car-img-container">
+                        {% if carro.foto %}
+                            <img src="{{ carro.foto.url }}" alt="{{ carro.marca.name }} {{ carro.modelo }}" class="car-img">
+                        {% else %}
+                            <div class="no-photo">🚗</div>
+                        {% endif %}
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">{{ carro.marca.name }} {{ carro.modelo }}</h3>
+                        <p class="car-details">Ano: {{ carro.ano_fabricacao }} | KM: {{ carro.km}}</p>
+                        <p class="car-price">R$ {{ carro.valor }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+        {% else %}
+            <div class="no-results">
+                <div class="no-results-icon">🚗</div>
+                <h3>Nenhum carro encontrado</h3>
+                <p>Tente ajustar sua busca ou cadastre um novo veículo</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

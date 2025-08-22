@@ -17,6 +17,8 @@
       --footer-bg: #f5f5f5;
       --footer-text: #333;
       --accent-color: #e91e63; /* Rosa escuro para destaques */
+      --btn-cadastrar: #4CAF50; /* Verde para o botão de cadastro */
+      --btn-cadastrar-hover: #45a049; /* Verde mais escuro para hover */
     }
 
     .dark-mode {
@@ -30,15 +32,24 @@
       --footer-bg: #1a1a1a;    /* Quase preto */
       --footer-text: #e6e6e6;
       --accent-color: #f44336; /* Vermelho para destaques */
+      --btn-cadastrar: #2E7D32; /* Verde mais escuro para dark mode */
+      --btn-cadastrar-hover: #1B5E20; /* Verde ainda mais escuro para hover */
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
     }
 
     body {
       font-family: 'Poppins', 'Roboto', sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
-      margin: 0;
-      padding: 0;
       transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     header {
@@ -47,11 +58,17 @@
       text-align: center;
     }
 
+    main {
+      flex: 1;
+      padding: 20px;
+    }
+
     footer {
       background-color: var(--footer-bg);
       color: var(--footer-text);
       padding: 20px;
       text-align: center;
+      margin-top: auto; /* Garante que o rodapé fique no final */
     }
 
     nav {
@@ -97,6 +114,25 @@
       background-color: var(--nav-active-hover);
     }
 
+    .btn-cadastrar {
+      background-color: var(--btn-cadastrar);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-cadastrar:hover {
+      background-color: var(--btn-cadastrar-hover);
+      transform: translateY(-2px);
+    }
+
     .theme-toggle {
       background: none;
       border: none;
@@ -117,6 +153,23 @@
       font-weight: bold;
       margin-right: 20px;
     }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+      }
+      
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .theme-toggle {
+        margin-top: 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -126,7 +179,8 @@
         <li class="logo">Cangaro Multimarcas</li>
         <li><a href="#">Home</a></li>
         <li><a href="#">Carros</a></li>
-        <li><a href="#">Sobre</a></li>
+        <!-- Botão Cadastrar Carros no lugar de Sobre -->
+        <li><a href="/add/carros" class="btn-cadastrar">Cadastrar Carros</a></li>
         <li><a href="#">Contato</a></li>
       </ul>
       <button class="theme-toggle" id="themeToggle">🌙</button>

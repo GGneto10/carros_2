@@ -1,5 +1,6 @@
-from carros.models import Carro, Marca
-from django.views.generic import ListView, DetailView
+from carros.models import Carro
+from django.views.generic import ListView, DetailView, CreateView
+from .forms import CarroModelForm
 from django.db.models import Q
 
 class CarrosListView(ListView): 
@@ -27,3 +28,10 @@ class CarrosListView(ListView):
 class CarrosDetailView(DetailView):
     model = Carro
     template_name = 'detalhes_carros.html'
+
+
+class AddCarroCreateView(CreateView):
+    model = Carro 
+    form_class = CarroModelForm
+    template_name = 'add_carro.html'
+    success_url = '/lista/' 

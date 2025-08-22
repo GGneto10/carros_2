@@ -1,10 +1,10 @@
 from django import forms
 from .models import Carro
 
-class CarModelForm(forms.ModelForm):
+class CarroModelForm(forms.ModelForm):
     class Meta:
         model = Carro
-        fielsds = '__all__'
+        fields = '__all__'
 
     def clean_km(self):
         km = self.cleaned_data.get('km')
