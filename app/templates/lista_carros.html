@@ -1,15 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cangaro Multimarcas - Lista de Carros</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+{% block extra_css %}
+  {{ block.super }}
   <link rel="stylesheet" href="{% static 'css/lista_carros.css' %}">
-</head>
+{% endblock %}
 <body>
   <main>
     <div class="container">
@@ -77,11 +73,6 @@
       </div>
     </div>
   </main>
-
-  <footer>
-    <p>&copy; 2024 Cangaro Multimarcas - Todos os direitos reservados</p>
-    <p>Telefone: (00) 00000-0000 | Email: ggneto1234@gmail.com</p>
-  </footer>
 
   <script src="{% static 'js/lista_carros.js' %}"></script>
 </body>
