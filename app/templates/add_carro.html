@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Cadastrar Veículo - Cangaro Multimarcas{% endblock %}
+
+<!-- Aplicando tags html extras nessa página especifíca -->
+{% block extra_css %}
+<!-- Herdando o conteúdo da tag head em base.html -->
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/add_carro.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h2>Cadastrar Novo Veículo</h2>
+            <p>Preencha todos os campos abaixo para registrar seu veículo</p>
+        </div>
+
+        <!-- Seção de erros melhorada -->
+        {% if form.errors %}
+        <div class="alert-danger">
+            <strong>Por favor, corrija os seguintes erros:</strong>
+            <ul>
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li><strong>{{ field|title }}:</strong> {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+            {% csrf_token %}
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="{{ form.marca.id_for_label }}">Marca do Veículo</label>
+                        {{ form.marca }}
+                        {% if form.marca.errors %}
+                        <small class="text-danger">{{ form.marca.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="{{ form.modelo.id_for_label }}">Modelo do Veículo</label>
+                        <input type="text" 
+                               id="{{ form.modelo.id_for_label }}" 
+                               name="{{ form.modelo.html_name }}"
+                               value="{{ form.modelo.value|default_if_none:'' }}"
+                               class="form-control"
+                               placeholder="Ex: Fiesta, Gol, Onix"
+                               required>
+                        {% if form.modelo.errors %}
+                        <small class="text-danger">{{ form.modelo.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.ano_fabricacao.id_for_label }}">Ano de Fabricação</label>
+                        <input type="number" 
+                               id="{{ form.ano_fabricacao.id_for_label }}" 
+                               name="{{ form.ano_fabricacao.html_name }}"
+                               value="{{ form.ano_fabricacao.value|default_if_none:'' }}"
+                               class="form-control"
+                               min="1900"
+                               max="{% now 'Y' %}"
+                               step="1"
+                               placeholder="{% now 'Y' %}">
+                        {% if form.ano_fabricacao.errors %}
+                        <small class="text-danger">{{ form.ano_fabricacao.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.ano_modelo.id_for_label }}">Ano do Modelo</label>
+                        <input type="number" 
+                               id="{{ form.ano_modelo.id_for_label }}" 
+                               name="{{ form.ano_modelo.html_name }}"
+                               value="{{ form.ano_modelo.value|default_if_none:'' }}"
+                               class="form-control"
+                               min="1900"
+                               max="{% now 'Y' %}"
+                               step="1"
+                               placeholder="{% now 'Y' %}">
+                        {% if form.ano_modelo.errors %}
+                        <small class="text-danger">{{ form.ano_modelo.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.placa.id_for_label }}">Placa (Opcional)</label>
+                        <input type="text" 
+                               id="{{ form.placa.id_for_label }}" 
+                               name="{{ form.placa.html_name }}"
+                               value="{{ form.placa.value|default_if_none:'' }}"
+                               class="form-control"
+                               placeholder="Ex: ABC1D23">
+                        {% if form.placa.errors %}
+                        <small class="text-danger">{{ form.placa.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="{{ form.valor.id_for_label }}">Valor (R$)</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">R$</span>
+                            </div>
+                            <input type="number" 
+                                   id="{{ form.valor.id_for_label }}" 
+                                   name="{{ form.valor.html_name }}"
+                                   value="{{ form.valor.value|default_if_none:'' }}"
+                                   class="form-control"
+                                   step="0.01"
+                                   min="0"
+                                   placeholder="0.00">
+                        </div>
+                        {% if form.valor.errors %}
+                        <small class="text-danger">{{ form.valor.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="{{ form.km.id_for_label }}">Quilometragem (Km)</label>
+                        <div class="input-group">
+                            <input type="number" 
+                                   id="{{ form.km.id_for_label }}" 
+                                   name="{{ form.km.html_name }}"
+                                   value="{{ form.km.value|default_if_none:'' }}"
+                                   class="form-control"
+                                   min="0"
+                                   step="1"
+                                   placeholder="0">
+                            <div class="input-group-append">
+                                <span class="input-group-text">km</span>
+                            </div>
+                        </div>
+                        {% if form.km.errors %}
+                        <small class="text-danger">{{ form.km.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.foto.id_for_label }}">Foto do Veículo</label>
+                <div class="photo-preview" id="photoPreview">
+                    <span>🚗</span>
+                    <p class="text-muted">Nenhuma imagem selecionada</p>
+                </div>
+                <div class="custom-file">
+                    <input type="file" 
+                           class="custom-file-input" 
+                           id="{{ form.foto.id_for_label }}" 
+                           name="{{ form.foto.html_name }}"
+                           accept="image/*">
+                    <label class="custom-file-label" for="{{ form.foto.id_for_label }}">Selecione uma imagem</label>
+                </div>
+                {% if form.foto.errors %}
+                <small class="text-danger">{{ form.foto.errors|striptags }}</small>
+                {% endif %}
+                <small class="form-text text-muted">Formatos aceitos: JPG, PNG. Tamanho máximo: 5MB.</small>
+            </div>
+            
+            <button type="submit" class="btn-submit">
+                Cadastrar Veículo
+            </button>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'js/add_carro.js' %}"></script>
+{% endblock %}

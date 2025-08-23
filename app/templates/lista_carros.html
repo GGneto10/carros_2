@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cangaro Multimarcas - Lista de Carros</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/lista_carros.css' %}">
+</head>
+<body>
+  <main>
+    <div class="container">
+      <h1 class="page-title">Nossa Frota de Veículos</h1>
+      
+      <div class="filters">
+        <div class="search-box">
+          <form method="GET" action="">
+            <input type="text" name="search" placeholder="Buscar carro por modelo, marca..." value="{{ request.GET.search }}">
+          </form>
+        </div>
+        <select class="filter-select">
+          <option value="">Todas as Marcas</option>
+          <!-- As opções serão preenchidas dinamicamente -->
+        </select>
+        <select class="filter-select">
+          <option value="">Todos os Preços</option>
+          <option value="0-30000">Até R$ 30.000</option>
+          <option value="30000-50000">R$ 30.000 - R$ 50.000</option>
+          <option value="50000-80000">R$ 50.000 - R$ 80.000</option>
+          <option value="80000+">Acima de R$ 80.000</option>
+        </select>
+      </div>
+      
+      <div class="cars-grid" id="cars-container">
+        {% if carros %}
+          {% for carro in carros %}
+          <div class="car-card">
+            <div class="car-image">
+              {% if carro.foto %}
+                <img src="{{ carro.foto.url }}" alt="{{ carro.marca }} {{ carro.modelo }}">
+              {% else %}
+                <div class="no-image">Imagem não disponível</div>
+              {% endif %}
+            </div>
+            <div class="car-info">
+              <h3 class="car-title">{{ carro.marca }} {{ carro.modelo }}</h3>
+              <div class="car-details">
+                <div class="car-detail">
+                  <span>Ano/Modelo:</span>
+                  <span>{{ carro.ano_fabricacao }}/{{ carro.ano_modelo }}</span>
+                </div>
+                <div class="car-detail">
+                  <span>KM:</span>
+                  <span>{{ carro.km|floatformat:0 }}</span>
+                </div>
+                <div class="car-detail">
+                  <span>Placa:</span>
+                  <span>{{ carro.placa|default:"Não informada" }}</span>
+                </div>
+              </div>
+              <div class="car-price">R$ {{ carro.valor|floatformat:2 }}</div>
+              <div class="car-actions">
+                <a class="btn btn-primary" href="{% url 'detalhes_carros' carro.id %}">Detalhes</a>
+                <a class="btn btn-secondary">Favorito</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <div class="empty-state">
+            <p>Nenhum carro encontrado.</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Cangaro Multimarcas - Todos os direitos reservados</p>
+    <p>Telefone: (00) 00000-0000 | Email: ggneto1234@gmail.com</p>
+  </footer>
+
+  <script src="{% static 'js/lista_carros.js' %}"></script>
+</body>
+</html>
+{% endblock %}

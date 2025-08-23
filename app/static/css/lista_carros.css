@@ -1,0 +1,289 @@
+/* Seus estilos CSS permanecem os mesmos */
+:root {
+    --bg-color: #fff;
+    --text-color: #333;
+    --header-bg: #ff4081;  /* Rosa */
+    --nav-bg: #ff4081;     /* Rosa */
+    --nav-hover: #f8bbd0;  /* Rosa claro */
+    --nav-active: #e91e63;  /* Rosa escuro */
+    --nav-active-hover: #ad1457;
+    --footer-bg: #f5f5f5;
+    --footer-text: #333;
+    --accent-color: #e91e63; /* Rosa escuro para destaques */
+    --card-bg: #fff;
+    --card-border: #e0e0e0;
+    --card-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .dark-mode {
+    --bg-color: #121212;
+    --text-color: #e6e6e6;
+    --header-bg: #b71c1c;    /* Vermelho escuro */
+    --nav-bg: #b71c1c;       /* Vermelho escuro */
+    --nav-hover: #424242;    /* Cinza escuro */
+    --nav-active: #7b1fa2;   /* Roxo para contraste */
+    --nav-active-hover: #6a1b9a;
+    --footer-bg: #1a1a1a;    /* Quase preto */
+    --footer-text: #e6e6e6;
+    --accent-color: #f44336; /* Vermelho para destaques */
+    --card-bg: #1e1e1e;
+    --card-border: #333;
+    --card-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  body {
+    font-family: 'Poppins', 'Roboto', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease;
+  }
+
+  header {
+    background-color: var(--header-bg);
+    color: #fff;
+    text-align: center;
+  }
+
+  footer {
+    background-color: var(--footer-bg);
+    color: var(--footer-text);
+    padding: 20px;
+    text-align: center;
+  }
+
+  nav {
+    background-color: var(--nav-bg);
+    color: #fff;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+  }
+
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  nav ul li {
+    margin: 0 10px;
+  }
+
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 15px;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+  }
+
+  nav ul li a:hover {
+    background-color: var(--nav-hover);
+  }
+
+  nav ul li.active a {
+    background-color: var(--nav-active);
+  }
+
+  nav ul li.active a:hover {
+    background-color: var(--nav-active-hover);
+  }
+
+  .theme-toggle {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 4px;
+    margin-left: 10px;
+  }
+
+  .theme-toggle:hover {
+    background-color: var(--nav-hover);
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 20px;
+  }
+
+  /* Estilos específicos para a lista de carros */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .page-title {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--accent-color);
+  }
+
+  .cars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .car-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--card-border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .car-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  }
+
+  .car-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+  }
+
+  .car-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .car-info {
+    padding: 20px;
+  }
+
+  .car-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 10px;
+    color: var(--accent-color);
+  }
+
+  .car-details {
+    margin-bottom: 15px;
+  }
+
+  .car-detail {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+
+  .car-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--accent-color);
+    text-align: right;
+  }
+
+  .car-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-primary {
+    background-color: var(--accent-color);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--accent-color);
+    color: white;
+  }
+
+  .filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .search-box {
+    flex: 1;
+    min-width: 250px;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .filter-select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+  }
+
+  .dark-mode .filter-select,
+  .dark-mode .search-box input {
+    background-color: #333;
+    color: white;
+    border-color: #555;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+  }
+
+  .no-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #888;
+  }
+
+  @media (max-width: 768px) {
+    .filters {
+      flex-direction: column;
+    }
+    
+    .search-box, .filter-select {
+      width: 100%;
+    }
+  }

@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+  <!-- Blocos extras de outras páginas serão inseridas aqui -->
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="logo">Cangaro Multimarcas</li>
+        <li><a href="#">Home</a></li>
+        <li><a href="{% url 'lista_carros' %}">Carros</a></li>
+        <li><a href="{% url 'add_carro' %}">Cadastrar Carro</a></li>
+        <li><a href="#">Sobre</a></li>
+        <li id="link-contato"><a href="#">Contato</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}
+    <!-- O conteúdo específico de cada página será inserido aqui -->
+    {% endblock %}
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Cangaro Multimarcas - Todos os direitos reservados</p>
+    <p>Endereço: Sua Rua, 123 - Sua Cidade - Seu Estado</p>
+    <p>Telefone: (00) 00000-0000 | Email: contato@cangaromultimarcas.com.br</p>
+  </footer>
+
+  <script src="{% static 'js/base.js' %}"></script>
+</body>
+</html>
