@@ -168,7 +168,7 @@
           <span style="color: white; margin-right: 10px;">Olá, {{ user.username }}</span>
           <form action="{% url 'deslogar' %}" method="post" style="display: inline;">
             {% csrf_token %}
-            <button type="submit" class="auth-button">Logout</button>
+            <button type="submit" class="auth-button">Deslogar</button>
           </form>
         {% else %}
           <a href="{% url 'login' %}" class="auth-button">Login</a>
