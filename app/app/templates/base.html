@@ -96,7 +96,7 @@
       background-color: var(--nav-hover);
     }
 
-    .theme-toggle {
+    .theme-toggle, .auth-button {
       background: none;
       border: none;
       color: white;
@@ -105,9 +105,10 @@
       padding: 10px;
       border-radius: 4px;
       margin-left: 10px;
+      font-family: 'Poppins', 'Roboto', sans-serif;
     }
 
-    .theme-toggle:hover {
+    .theme-toggle:hover, .auth-button:hover {
       background-color: var(--nav-hover);
     }
 
@@ -115,6 +116,11 @@
       font-size: 24px;
       font-weight: bold;
       margin-right: 20px;
+    }
+
+    .auth-buttons {
+      display: flex;
+      align-items: center;
     }
 
     @media (max-width: 768px) {
@@ -129,8 +135,19 @@
         justify-content: center;
       }
       
-      .theme-toggle {
+      .theme-toggle, .auth-button {
         margin-top: 10px;
+      }
+
+      .auth-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .auth-button {
+        margin: 5px 0;
+        width: 100%;
+        text-align: center;
       }
     }
   </style>
@@ -141,12 +158,24 @@
       <ul>
         <li class="logo">Cangaro Multimarcas</li>
         <li><a href="#">Home</a></li>
-        <li><a href="#">Carros</a></li>
+        <li><a href="/lista/">Carros</a></li>
         <!-- Botão Cadastrar Carros com estilo igual aos outros -->
         <li><a href="/add/carros">Cadastrar Carros</a></li>
         <li><a href="#">Contato</a></li>
       </ul>
-      <button class="theme-toggle" id="themeToggle">🌙</button>
+      <div class="auth-buttons">
+        {% if user.is_authenticated %}
+          <span style="color: white; margin-right: 10px;">Olá, {{ user.username }}</span>
+          <form action="{% url 'deslogar' %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="auth-button">Logout</button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}" class="auth-button">Login</a>
+          <a href="{% url 'cadastro' %}" class="auth-button">Cadastro</a>
+        {% endif %}
+        <button class="theme-toggle" id="themeToggle">🌙</button>
+      </div>
     </nav>
   </header>
 
@@ -177,7 +206,7 @@
       document.body.classList.toggle('dark-mode');
       
       const isDark = document.body.classList.contains('dark-mode');
-      localStorage.setitem('theme', isDark ? 'dark' : 'light');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
       
       this.textContent = isDark ? '☀️' : '🌙';
     });

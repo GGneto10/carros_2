@@ -20,13 +20,16 @@ from carros.views import CarrosListView, CarrosDetailView, AddCarroCreateView
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
+from contas.views import cadastro_view, login_view, logout_view
 
-# URL patterns for the app project
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('lista/', CarrosListView.as_view(), name='lista_carros'),
-    path('', RedirectView.as_view(url='lista/')),
+    path('', RedirectView.as_view(url='login/')),
     path('carros/detalhes/<int:pk>/', CarrosDetailView.as_view(), name='detalhes_carros'),
     path('add/carros/', AddCarroCreateView.as_view(), name='add_carro'),
+    path('cadastro/', cadastro_view, name='cadastro'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='deslogar'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
