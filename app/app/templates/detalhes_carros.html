@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -259,6 +257,17 @@
             box-shadow: 0 6px 12px rgba(255, 46, 46, 0.3);
         }
 
+        .btn-warning {
+            background: linear-gradient(145deg, #ff9800, #f57c00);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: linear-gradient(145deg, #ffa726, #ff9800);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(255, 152, 0, 0.3);
+        }
+
         .btn-danger {
             background: linear-gradient(145deg, var(--danger-color), #b71c1c);
             color: white;
@@ -406,9 +415,14 @@
             <button class="btn btn-primary">
                 <i class="fas fa-phone"></i> Entrar em Contato
             </button>
-            <button class="btn btn-primary">
-                <i class="fas fa-car"></i> Solicitar Test Drive
-            </button>
+            
+            <!-- Botão de Editar - visível apenas para usuários logados -->
+            {% if user.is_authenticated %}
+            <a href="{% url 'atualizar_carro' pk=object.id %}" class="btn btn-warning">
+                <i class="fas fa-edit"></i> Editar Carro
+            </a>
+            {% endif %}
+            
             <button class="btn btn-danger" id="favorite-btn">
                 <i class="fas fa-heart"></i> Adicionar aos Favoritos
             </button>
@@ -421,8 +435,6 @@
             button.addEventListener('click', function() {
                 if (this.textContent.includes('Contato')) {
                     alert('Funcionalidade de contato em desenvolvimento');
-                } else if (this.textContent.includes('Test Drive')) {
-                    alert('Funcionalidade de test drive em desenvolvimento');
                 }
             });
         });

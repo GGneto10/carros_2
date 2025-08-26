@@ -49,7 +49,7 @@ class AtualizarCarroUpdateView(UpdateView):
     template_name = 'atualizar_carro.html'
 
     def get_success_url(self):
-        return reverse_lazy('car_detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('detalhes_carros', kwargs={'pk': self.object.pk})
     
 class DeletarCarroDeleteView(DeleteView):
     model = Carro 
