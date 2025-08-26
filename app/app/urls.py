@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from carros.views import CarrosListView, CarrosDetailView, AddCarroCreateView
+from carros.views import CarrosListView, CarrosDetailView, AddCarroCreateView, AtualizarCarroUpdateView, DeletarCarroDeleteView
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -31,5 +31,7 @@ urlpatterns = [
     path('cadastro/', cadastro_view, name='cadastro'),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='deslogar'),
+    path('carros/<int:pk>/update/', AtualizarCarroUpdateView.as_view(), name='atualizar_carro'),
+    path('carros/<int:pk>/delete/', DeletarCarroDeleteView.as_view(), name='deletar_carro'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
