@@ -324,7 +324,7 @@
         .logo h1 {
             font-size: 2.5rem;
             color: var(--accent-color);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 极 2px 4px rgba(0,0,0,0.5);
         }
 
         .logo span {
@@ -333,6 +333,9 @@
     </style>
 </head>
 <body>
+    <!-- Carregar as template tags personalizadas -->
+    {% load custom_filters %}
+    
     <div class="logo">
         <h1>Cangaro<span>Multimarcas</span></h1>
     </div>
@@ -378,7 +381,7 @@
                         <span class="detail-label">Quilometragem</span>
                         <span class="detail-value">
                             {% if carro.km %}
-                                {{ carro.km|floatformat:0 }} km
+                                {{ carro.km|format_km }} km
                             {% else %}
                                 Não informada
                             {% endif %}
@@ -406,15 +409,15 @@
                     </div>
                 </div>
                 
-                <!-- Preço do carro -->
-                <div class="car-price">R$ {{ carro.valor|floatformat:2 }}</div>
+                <!-- Preço do carro formatado com o filtro personalizado -->
+                <div class="car-price">R$ {{ carro.valor|format_currency }}</div>
             </div>
         </div>
         
         <div class="buttons-container">
-            <button class="btn btn-primary">
+            <a href="https://wa.me/5584991473506" class="btn btn-primary" target="_blank">
                 <i class="fas fa-phone"></i> Entrar em Contato
-            </button>
+            </a>
             
             <!-- Botão de Editar - visível apenas para usuários logados -->
             {% if user.is_authenticated %}
@@ -430,15 +433,6 @@
     </div>
 
     <script>
-        // Adicionar event listeners aos botões
-        document.querySelectorAll('.btn-primary').forEach(button => {
-            button.addEventListener('click', function() {
-                if (this.textContent.includes('Contato')) {
-                    alert('Funcionalidade de contato em desenvolvimento');
-                }
-            });
-        });
-
         document.getElementById('favorite-btn').addEventListener('click', function() {
             const isFavorited = this.textContent.includes('Favoritado');
             this.innerHTML = isFavorited ? '<i class="fas fa-heart"></i> Adicionar aos Favoritos' : '<i class="fas fa-check"></i> Favoritado ✓';
