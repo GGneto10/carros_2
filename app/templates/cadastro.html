@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Cadastro - Cangaro Multimarcas{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-box">
+        <h2>Cadastre-se</h2>
+        <form method="post" class="login-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                {{ user_form.username.errors }}
+                <label for="id_username">Usuário</label>
+                {{ user_form.username }}
+            </div>
+            
+            <div class="form-group">
+                {{ user_form.password1.errors }}
+                <label for="id_password1">Senha</label>
+                {{ user_form.password1 }}
+            </div>
+            
+            <div class="form-group">
+                {{ user_form.password2.errors }}
+                <label for="id_password2">Confirmação de Senha</label>
+                {{ user_form.password2 }}
+            </div>
+            
+            <button type="submit" class="login-button">Cadastrar</button>
+            
+            {% if form.errors %}
+            <div class="error-message">
+                Por favor, corrija os erros abaixo.
+            </div>
+            {% endif %}
+        </form>
+        
+        <div class="login-links">
+            <a href="{% url 'login' %}">Já tem uma conta? Faça login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}AutoPremium - Encontre Seu Carro Ideal{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap"
+    rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% load custom_filters %}
+
+{% block content %}
+<div class="home-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Encontre Seu Carro Ideal</h1>
+            <p> Temos carros disponíveis apartir de R$ {{ estatisticas.preco_minimo|format_currency}}</p>
+
+            <!-- Barra de busca rápida -->
+            <form method="GET" action="{% url 'lista_carros' %}" class="hero-search">
+                <input type="text" name="search" placeholder="Buscar por modelo, marca, cor..."
+                    value="{{ search_query }}">
+                <button type="submit">🔍 Buscar</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Destaques -->
+    <section class="section">
+        <h2>Carros em Destaque</h2>
+        <div class="car-grid">
+            {% for carro in carros_destaque %}
+            <div class="car-card">
+                {% if carro.foto %}
+                <img src="{{ carro.foto.url }}" alt="{{ carro.marca.name }} {{ carro.modelo }}">
+                {% else %}
+                <div class="no-photo">🚗</div>
+                {% endif %}
+                <div class="car-info">
+                    <h3>{{ carro.marca.name }} {{ carro.modelo }}</h3>
+                    <p>Ano: {{ carro.ano_fabricacao }} | KM: {{ carro.km|format_km }}</p>
+                    <p class="price">R$ {{ carro.valor|format_currency }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Ofertas -->
+    <section class="section">
+        <h2>Ofertas Especiais</h2>
+        <div class="car-grid">
+            {% for carro in carros_ofertas %}
+            <div class="car-card highlight">
+                {% if carro.foto %}
+                <img src="{{ carro.foto.url }}" alt="{{ carro.marca.name }} {{ carro.modelo }}">
+                {% else %}
+                <div class="no-photo">💰</div>
+                {% endif %}
+                <div class="car-info">
+                    <h3>{{ carro.marca.name }} {{ carro.modelo }}</h3>
+                    <p class="price">R$ {{ carro.valor|format_currency }}</p>
+                    <span class="badge">OFERTA</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Marcas -->
+    <section class="section">
+        <h2>Marcas Populares</h2>
+        <div class="brands-grid">
+            {% for marca in marcas_populares %}
+            <a href="{% url 'lista_carros' %}?marca={{ marca.id }}" class="brand-card">
+                <h3>{{ marca.name }}</h3>
+                <span>{{ marca.total_carros }} carros</span>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}

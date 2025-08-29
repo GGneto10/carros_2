@@ -16,13 +16,25 @@
     <nav>
       <ul>
         <li class="logo">Cangaro Multimarcas</li>
-        <li><a href="#">Home</a></li>
-        <li><a href="{% url 'lista_carros' %}">Carros</a></li>
-        <li><a href="{% url 'add_carro' %}">Cadastrar Carro</a></li>
-        <li><a href="#">Sobre</a></li>
-        <li id="link-contato"><a href="#">Contato</a></li>
+        <li><a href="/home/">Home</a></li>
+        <li><a href="/lista/">Carros</a></li>
+        <!-- Botão Cadastrar Carros com estilo igual aos outros -->
+        <li><a href="/add/carros">Cadastrar Carros</a></li>
+        <li><a href="#">Contato</a></li>
       </ul>
-      <button class="theme-toggle" id="themeToggle">🌙</button>
+      <div class="auth-buttons">
+        {% if user.is_authenticated %}
+          <span style="color: white; margin-right: 10px;">Olá, {{ user.username }}</span>
+          <form action="{% url 'deslogar' %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="auth-button">Deslogar</button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}" class="auth-button">Login</a>
+          <a href="{% url 'cadastro' %}" class="auth-button">Cadastro</a>
+        {% endif %}
+        <button class="theme-toggle" id="themeToggle">🌙</button>
+      </div>
     </nav>
   </header>
 
@@ -34,8 +46,8 @@
 
   <footer>
     <p>&copy; 2024 Cangaro Multimarcas - Todos os direitos reservados</p>
-    <p>Endereço: Sua Rua, 123 - Sua Cidade - Seu Estado</p>
-    <p>Telefone: (00) 00000-0000 | Email: contato@cangaromultimarcas.com.br</p>
+    <p>Endereço: Sua Rua, 123 - Natal - RN</p>
+    <p>Telefone: (84) 99447-3369 | Email: cangaromultimarcas@gmail.com</p>
   </footer>
 
   <script src="{% static 'js/base.js' %}"></script>

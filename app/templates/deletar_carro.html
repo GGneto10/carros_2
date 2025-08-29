@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/deletar_carro.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="confirmation-container">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Deletar Carro</h1>
+        </div>
+        <div class="card-body">
+            <p>Tem certeza que deseja deletar permanentemente o carro <strong>{{ object.marca }} {{ object.modelo }}</strong>?</p>
+            <p>Esta ação não pode ser desfeita.</p>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="buttons-container">
+                    <button type="submit" class="btn btn-danger">
+                        Confirmar Exclusão
+                    </button>
+                    <a href="{% url 'atualizar_carro' pk=object.id %}" class="btn btn-secondary">
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

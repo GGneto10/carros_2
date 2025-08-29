@@ -1,164 +1,121 @@
+/* Variáveis de cores para o tema escuro */
 :root {
-  --bg-color: #fff;
-  --text-color: #333;
-  --header-bg: #ff4081;  /* Rosa */
-  --nav-bg: #ff4081;     /* Rosa */
-  --nav-hover: #f8bbd0;  /* Rosa claro */
-  --nav-active: #e91e63;  /* Rosa escuro */
-  --nav-active-hover: #ad1457;
-  --footer-bg: #f5f5f5;
-  --footer-text: #333;
-  --accent-color: #e91e63; /* Rosa escuro para destaques */
-  --card-bg: #fff;
-  --card-border: #e0e0e0;
-  --card-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  --primary-color: #e91e63; /* Rosa escuro para botões primários */
-  --primary-hover: #ad1457; /* Rosa mais escuro para hover */
-  --danger-color: #d9534f; /* Vermelho para ações perigosas */
-  --danger-hover: #c9302c; /* Vermelho mais escuro para hover */
+  --primary-bg: #0a0a0a;
+  --secondary-bg: #1a1a1a;
+  --card-bg: #1e1e1e;
+  --text-primary: #f0f0f0;
+  --text-secondary: #a0a0a0;
+  --accent-color: #ff2e2e;
+  --accent-hover: #ff5252;
+  --danger-color: #d32f2f;
+  --danger-hover: #f44336;
+  --card-border: #333;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-.dark-mode {
-  --bg-color: #121212;
-  --text-color: #e6e6e6;
-  --header-bg: #b71c1c;    /* Vermelho escuro */
-  --nav-bg: #b71c1c;       /* Vermelho escuro */
-  --nav-hover: #424242;    /* Cinza escuro */
-  --nav-active: #7b1fa2;   /* Roxo para contraste */
-  --nav-active-hover: #6a1b9a;
-  --footer-bg: #1a1a1a;    /* Quase preto */
-  --footer-text: #e6e6e6;
-  --accent-color: #f44336; /* Vermelho para destaques */
-  --card-bg: #1e1e1e;
-  --card-border: #333;
-  --card-shadow: 0 2px 8px rgba(0,0,0,0.4);
-  --primary-color: #f44336; /* Vermelho para botões primários */
-  --primary-hover: #d32f2f; /* Vermelho mais escuro para hover */
-  --danger-color: #e57373; /* Vermelho claro para ações perigosas */
-  --danger-hover: #ef5350; /* Vermelho mais escuro para hover */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  font-family: 'Poppins', 'Roboto', sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  margin: 0;
-  padding: 0;
-  transition: all 0.3s ease;
-}
-
-header {
-  background-color: var(--header-bg);
-  color: #fff;
-  text-align: center;
-}
-
-footer {
-  background-color: var(--footer-bg);
-  color: var(--footer-text);
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
   padding: 20px;
-  text-align: center;
-}
-
-nav {
-  background-color: var(--nav-bg);
-  color: #fff;
-  height: 50px;
+  min-height: 100vh;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  padding: 0 20px;
+  justify-content: center;
 }
 
-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-}
-
-nav ul li {
-  margin: 0 10px;
-}
-
-nav ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 16px;
-  padding: 15px;
-  transition: all 0.3s ease;
-  border-radius: 4px;
-}
-
-nav ul li a:hover {
-  background-color: var(--nav-hover);
-}
-
-nav ul li.active a {
-  background-color: var(--nav-active);
-}
-
-nav ul li.active a:hover {
-  background-color: var(--nav-active-hover);
-}
-
-.theme-toggle {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 10px;
-  border-radius: 4px;
-  margin-left: 10px;
-}
-
-.theme-toggle:hover {
-  background-color: var(--nav-hover);
-}
-
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  margin-right: 20px;
-}
-
-/* Estilos específicos para a página de detalhes */
 .car-detail-container {
-  max-width: 1000px;
-  margin: 30px auto;
+  max-width: 1200px;
+  width: 100%;
+  margin: 20px auto;
   padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: linear-gradient(145deg, #2c2c2c, #222);
+  color: var(--text-primary);
+  border: 1px solid #333;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  align-self: flex-start;
+}
+
+.btn-back:hover {
+  background: linear-gradient(145deg, #333, #2a2a2a);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  border-color: #444;
 }
 
 .car-card {
   background-color: var(--card-bg);
-  border-radius: 8px;
+  border-radius: 16px;
   overflow: hidden;
   box-shadow: var(--card-shadow);
   border: 1px solid var(--card-border);
   transition: all 0.3s ease;
   margin-bottom: 30px;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .car-card:hover {
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 24px rgba(255, 46, 46, 0.15);
+  transform: translateY(-5px);
 }
 
 .car-image {
   width: 100%;
   height: 400px;
   overflow: hidden;
-  background-color: #f0f0f0;
+  background: linear-gradient(45deg, #1a1a1a, #252525);
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+.car-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
+  z-index: 1;
 }
 
 .car-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.car-card:hover .car-image img {
+  transform: scale(1.05);
 }
 
 .no-image {
@@ -166,121 +123,202 @@ nav ul li.active a:hover {
   align-items: center;
   justify-content: center;
   height: 100%;
-  color: #888;
-  font-size: 24px;
+  color: #555;
+  font-size: 28px;
+  z-index: 2;
+  position: relative;
 }
 
 .car-info {
-  padding: 30px;
+  padding: 35px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .car-title {
-  font-size: 28px;
-  font-weight: 600;
-  margin: 0 0 20px;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 25px;
   color: var(--accent-color);
+  text-align: center;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.car-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: var(--accent-color);
+  border-radius: 3px;
 }
 
 .car-details-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  margin-bottom: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 800px;
 }
 
 .detail-item {
-  margin-bottom: 15px;
+  background: linear-gradient(145deg, #252525, #1f1f1f);
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 4px solid var(--accent-color);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.detail-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 12px rgba(255, 46, 46, 0.2);
 }
 
 .detail-label {
-  font-weight: bold;
+  font-weight: 600;
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   color: var(--accent-color);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .detail-value {
-  font-size: 18px;
+  font-size: 20px;
+  color: var(--text-primary);
 }
 
 .car-price {
-  font-size: 28px;
+  font-size: 36px;
   font-weight: bold;
   color: var(--accent-color);
   text-align: center;
-  margin: 25px 0;
+  margin: 30px 0;
+  padding: 15px 30px;
+  background: linear-gradient(145deg, #252525, #1f1f1f);
+  border-radius: 12px;
+  border: 1px solid #333;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  width: 100%;
+  max-width: 500px;
 }
 
 .buttons-container {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  margin-top: 30px;
+  gap: 20px;
+  margin-top: 40px;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 24px;
-  border-radius: 4px;
+  padding: 16px 32px;
+  border-radius: 8px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
-  min-width: 120px;
+  min-width: 200px;
   border: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .btn-primary {
-  background-color: var(--primary-color);
+  background: linear-gradient(145deg, var(--accent-color), #d32f2f);
   color: white;
 }
 
 .btn-primary:hover {
-  background-color: var(--primary-hover);
-  transform: translateY(-2px);
+  background: linear-gradient(145deg, var(--accent-hover), #e53935);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(255, 46, 46, 0.3);
+}
+
+.btn-warning {
+  background: linear-gradient(145deg, #ff9800, #f57c00);
+  color: white;
+}
+
+.btn-warning:hover {
+  background: linear-gradient(145deg, #ffa726, #ff9800);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(255, 152, 0, 0.3);
 }
 
 .btn-danger {
-  background-color: var(--danger-color);
+  background: linear-gradient(145deg, var(--danger-color), #b71c1c);
   color: white;
 }
 
 .btn-danger:hover {
-  background-color: var(--danger-hover);
-  transform: translateY(-2px);
+  background: linear-gradient(145deg, var(--danger-hover), #c62828);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(211, 47, 47, 0.3);
 }
 
-.btn-back {
-  background-color: #6c757d;
-  color: white;
-  margin-bottom: 20px;
-}
-
-.btn-back:hover {
-  background-color: #5a6268;
-  transform: translateY(-2px);
+.btn i {
+  margin-right: 10px;
 }
 
 @media (max-width: 768px) {
   .car-details-grid {
-    grid-template-columns: 1fr;
+      grid-template-columns: 1fr;
   }
   
   .car-image {
-    height: 250px;
+      height: 300px;
   }
   
   .buttons-container {
-    flex-direction: column;
-    align-items: center;
+      flex-direction: column;
+      align-items: center;
   }
   
   .btn {
-    width: 100%;
-    max-width: 300px;
+      width: 100%;
+      max-width: 300px;
   }
+  
+  .car-info {
+      padding: 25px 20px;
+  }
+  
+  .car-title {
+      font-size: 26px;
+  }
+  
+  .car-price {
+      font-size: 28px;
+      padding: 12px 20px;
+  }
+}
+
+.logo {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.logo h1 {
+  font-size: 2.5rem;
+  color: var(--accent-color);
+  text-shadow: 极 2px 4px rgba(0,0,0,0.5);
+}
+
+.logo span {
+  color: var(--text-primary);
 }
