@@ -6,113 +6,109 @@
 {% block extra_css %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static 'css/detalhes_carros.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}
 
 {% block content %}
 
-<body>
-  <!-- Carregar as template tags personalizadas -->
-  <!-- Carregar as template tags personalizadas -->
-  {% load custom_filters %}
+<!-- Carregar as template tags personalizadas -->
+{% load custom_filters %}
 
-  <div class="logo">
-    <h1>Cangaro<span>Multimarcas</span></h1>
-  </div>
+<div class="logo">
+  <h1>Cangaro<span>Multimarcas</span></h1>
+</div>
 
-  <div class="car-detail-container">
-    <!-- Link para voltar à lista de carros -->
-    <a href="{% url 'lista_carros' %}" class="btn btn-back">
-      <i class="fas fa-arrow-left"></i> Voltar para a Lista
-    </a>
+<div class="car-detail-container">
+  <!-- Link para voltar à lista de carros -->
+  <a href="{% url 'lista_carros' %}" class="btn btn-back">
+    <i class="fas fa-arrow-left"></i> Voltar para a Lista
+  </a>
 
-    <div class="car-card">
-      <div class="car-image">
-        <!-- Imagem do carro vinda do backend -->
-        {% if carro.foto %}
-        <img src="{{ carro.foto.url }}" alt="{{ carro.marca }} {{ carro.modelo }}">
-        {% else %}
-        <div class="no-image">🚗 Imagem não disponível</div>
-        {% endif %}
-      </div>
+  <div class="car-card">
+    <div class="car-image">
+      <!-- Imagem do carro vinda do backend -->
+      {% if carro.foto %}
+      <img src="{{ carro.foto.url }}" alt="{{ carro.marca }} {{ carro.modelo }}">
+      {% else %}
+      <div class="no-image">🚗 Imagem não disponível</div>
+      {% endif %}
+    </div>
 
-      <div class="car-info">
-        <!-- Título com marca e modelo do carro -->
-        <h1 class="car-title">{{ carro.marca }} {{ carro.modelo }}</h1>
+    <div class="car-info">
+      <!-- Título com marca e modelo do carro -->
+      <h1 class="car-title">{{ carro.marca }} {{ carro.modelo }}</h1>
 
-        <div class="car-details-grid">
-          <!-- Detalhes do carro vindos do backend -->
-          <div class="detail-item">
-            <span class="detail-label">Ano de Fabricação</span>
-            <span class="detail-value">{{ carro.ano_fabricacao|default:"Não informado" }}</span>
-          </div>
-
-          <div class="detail-item">
-            <span class="detail-label">Ano do Modelo</span>
-            <span class="detail-value">{{ carro.ano_modelo|default:"Não informado" }}</span>
-          </div>
-
-          <div class="detail-item">
-            <span class="detail-label">Placa</span>
-            <span class="detail-value">{{ carro.placa|default:"Não informada" }}</span>
-          </div>
-
-          <div class="detail-item">
-            <span class="detail-label">Quilometragem</span>
-            <span class="detail-value">
-              {% if carro.km %}
-              {{ carro.km|format_km }} km
-              {% else %}
-              Não informada
-              {% endif %}
-            </span>
-          </div>
-
-          <div class="detail-item">
-            <span class="detail-label">Combustível</span>
-            <span class="detail-value">{{ carro.combustivel|default:"Não informado" }}</span>
-          </div>
-
-          <div class="detail-item">
-            <span class="detail-label">Câmbio</span>
-            <span class="detail-value">{{ carro.cambio|default:"Não informado" }}</span>
-          </div>
-
-          <div class="detail-item">
-            <span class="detail-label">Cor</span>
-            <span class="detail-value">{{ carro.cor|default:"Não informada" }}</span>
-          </div>
-
-          <div class="detail-item">
-            <span class="detail-label">Portas</span>
-            <span class="detail-value">{{ carro.portas|default:"Não informadas" }}</span>
-          </div>
+      <div class="car-details-grid">
+        <!-- Detalhes do carro vindos do backend -->
+        <div class="detail-item">
+          <span class="detail-label">Ano de Fabricação</span>
+          <span class="detail-value">{{ carro.ano_fabricacao|default:"Não informado" }}</span>
         </div>
 
-        <!-- Preço do carro formatado com o filtro personalizado -->
-        <div class="car-price">R$ {{ carro.valor|format_currency }}</div>
+        <div class="detail-item">
+          <span class="detail-label">Ano do Modelo</span>
+          <span class="detail-value">{{ carro.ano_modelo|default:"Não informado" }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Placa</span>
+          <span class="detail-value">{{ carro.placa|default:"Não informada" }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Quilometragem</span>
+          <span class="detail-value">
+            {% if carro.km %}
+            {{ carro.km|format_km }} km
+            {% else %}
+            Não informada
+            {% endif %}
+          </span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Combustível</span>
+          <span class="detail-value">{{ carro.combustivel|default:"Não informado" }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Câmbio</span>
+          <span class="detail-value">{{ carro.cambio|default:"Não informado" }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Cor</span>
+          <span class="detail-value">{{ carro.cor|default:"Não informada" }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Portas</span>
+          <span class="detail-value">{{ carro.portas|default:"Não informadas" }}</span>
+        </div>
       </div>
-    </div>
 
-    <div class="buttons-container">
-      <a href="https://wa.me/5584991473506" class="btn btn-primary" target="_blank">
-        <i class="fas fa-phone"></i> Entrar em Contato
-      </a>
-
-      <!-- Botão de Editar - visível apenas para usuários logados -->
-      {% if user.is_authenticated %}
-      <a href="{% url 'atualizar_carro' pk=object.id %}" class="btn btn-warning">
-        <i class="fas fa-edit"></i> Editar Carro
-      </a>
-      {% endif %}
-
-      <button class="btn btn-danger" id="favorite-btn">
-        <i class="fas fa-heart"></i> Adicionar aos Favoritos
-      </button>
+      <!-- Preço do carro formatado com o filtro personalizado -->
+      <div class="car-price">R$ {{ carro.valor|format_currency }}</div>
     </div>
   </div>
 
-  <script src="{% static 'js/detalhes_carros.js' %}"></script>
-</body>
+  <div class="buttons-container">
+    <a href="https://wa.me/5584991473506" class="btn btn-primary" target="_blank">
+      <i class="fas fa-phone"></i> Entrar em Contato
+    </a>
 
-</html>
+    <!-- Botão de Editar - visível apenas para usuários logados -->
+    {% if user.is_authenticated %}
+    <a href="{% url 'atualizar_carro' pk=object.id %}" class="btn btn-warning">
+      <i class="fas fa-edit"></i> Editar Carro
+    </a>
+    {% endif %}
+
+    <button class="btn btn-danger" id="favorite-btn">
+      <i class="fas fa-heart"></i> Adicionar aos Favoritos
+    </button>
+  </div>
+</div>
+
+<script src="{% static 'js/detalhes_carros.js' %}"></script>
 {% endblock %}

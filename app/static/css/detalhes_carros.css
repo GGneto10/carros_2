@@ -1,5 +1,5 @@
- /* Variáveis de cores para o tema escuro */
- :root {
+/* Variáveis de cores para o tema escuro */
+:root {
   --primary-bg: #0a0a0a;
   --secondary-bg: #1a1a1a;
   --card-bg: #1e1e1e;
@@ -316,7 +316,7 @@ body {
 .logo h1 {
   font-size: 2.5rem;
   color: var(--accent-color);
-  text-shadow: 极 2px 4px rgba(0,0,0,0.5);
+  text-shadow: 2px 4px rgba(0,0,0,0.5);
 }
 
 .logo span {
