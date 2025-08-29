@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPremium - Encontre Seu Carro Ideal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+            
+            /* Variáveis para modo escuro */
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --card-bg: white;
+            --section-bg: transparent;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --card-bg: #2d2d2d;
+            --section-bg: transparent;
+            --dark: #f0f0f0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        
+        .home-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Botão de alternar tema */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--secondary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            font-size: 1.2rem;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1537005081207-04f90e3ba640?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&h=800&q=80') no-repeat center center/cover;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+        
+        .hero-search {
+            display: flex;
+            max-width: 700px;
+            margin: 0 auto;
+            box-shadow: var(--shadow);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+        
+        .hero-search input {
+            flex: 1;
+            padding: 18px 25px;
+            border: none;
+            font-size: 1.1rem;
+        }
+        
+        .hero-search button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .hero-search button:hover {
+            background: #c0392b;
+        }
+        
+        /* Sections */
+        .section {
+            padding: 60px 0;
+            background-color: var(--section-bg);
+        }
+        
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--text-color);
+            position: relative;
+        }
+        
+        .section h2:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        
+        /* Car Grid */
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .car-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .car-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .car-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .no-photo {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            background: #ddd;
+            color: #666;
+        }
+        
+        .car-info {
+            padding: 20px;
+        }
+        
+        .car-info h3 {
+            font-size: 1.4rem;
+            color: var(--text-color);
+        }
+        
+        .car-info p {
+            margin: 8px 0;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+        
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary) !important;
+            margin-top: 15px !important;
+        }
+        
+        /* Ofertas Especiais - Destaque */
+        .car-card.highlight {
+            border: 3px solid var(--secondary);
+            position: relative;
+            transform: scale(1.03);
+        }
+        
+        .car-card.highlight:before {
+            content: 'OFERTA ESPECIAL';
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--secondary);
+            color: white;
+            padding: 8px 30px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transform: rotate(45deg);
+            z-index: 1;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .badge {
+            display: inline-block;
+            background: var(--warning);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+        
+        /* Brands Grid */
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+        }
+        
+        .brand-card {
+            background: var(--card-bg);
+            padding: 25px 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--text-color);
+        }
+        
+        .brand-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            color: var(--accent);
+        }
+        
+        .brand-card h3 {
+            margin-bottom: 10px;
+        }
+        
+        .brand-card span {
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+            
+            .section h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 70px 0;
+            }
+            
+            .hero-search {
+                flex-direction: column;
+                border-radius: 10px;
+            }
+            
+            .hero-search input {
+                border-radius: 10px 10px 0 0;
+            }
+            
+            .hero-search button {
+                border-radius: 0 0 10px 10px;
+                padding: 15px;
+            }
+            
+            .car-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section {
+                padding: 40px 0;
+            }
+            
+            .car-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .brands-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% load custom_filters %}
+
+    {% block content %}
+    <div class="home-container">
+        <!-- Botão para alternar entre temas -->
+        <div class="theme-toggle" id="themeToggle">🌙</div>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Encontre Seu Carro Ideal</h1>
+                <p> Temos carros disponíveis apartir de R$ {{ estatisticas.preco_minimo|format_currency}}</p>
+                
+                <!-- Barra de busca rápida -->
+                <form method="GET" action="{% url 'lista_carros' %}" class="hero-search">
+                    <input type="text" name="search" placeholder="Buscar por modelo, marca, cor..." 
+                           value="{{ search_query }}">
+                    <button type="submit">🔍 Buscar</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Destaques -->
+        <section class="section">
+            <h2>Carros em Destaque</h2>
+            <div class="car-grid">
+                {% for carro in carros_destaque %}
+                    <div class="car-card">
+                        {% if carro.foto %}
+                            <img src="{{ carro.foto.url }}" alt="{{ carro.marca.name }} {{ carro.modelo }}">
+                        {% else %}
+                            <div class="no-photo">🚗</div>
+                        {% endif %}
+                        <div class="car-info">
+                            <h3>{{ carro.marca.name }} {{ carro.modelo }}</h3>
+                            <p>Ano: {{ carro.ano_fabricacao }} | KM: {{ carro.km|format_km }}</p>
+                            <p class="price">R$ {{ carro.valor|format_currency }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Ofertas -->
+        <section class="section">
+            <h2>Ofertas Especiais</h2>
+            <div class="car-grid">
+                {% for carro in carros_ofertas %}
+                    <div class="car-card highlight">
+                        {% if carro.foto %}
+                            <img src="{{ carro.foto.url }}" alt="{{ carro.marca.name }} {{ carro.modelo }}">
+                        {% else %}
+                            <div class="no-photo">💰</div>
+                        {% endif %}
+                        <div class="car-info">
+                            <h3>{{ carro.marca.name }} {{ carro.modelo }}</h3>
+                            <p class="price">R$ {{ carro.valor|format_currency }}</p>
+                            <span class="badge">OFERTA</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Marcas -->
+        <section class="section">
+            <h2>Marcas Populares</h2>
+            <div class="brands-grid">
+                {% for marca in marcas_populares %}
+                    <a href="{% url 'lista_carros' %}?marca={{ marca.id }}" class="brand-card">
+                        <h3>{{ marca.name }}</h3>
+                        <span>{{ marca.total_carros }} carros</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Sistema de alternância de tema claro/escuro
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            
+            // Verificar se há uma preferência salva
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                body.setAttribute('data-theme', savedTheme);
+                themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+            }
+            
+            // Alternar tema ao clicar no botão
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = body.getAttribute('data-theme');
+                if (currentTheme === 'dark') {
+                    body.removeAttribute('data-theme');
+                    themeToggle.textContent = '🌙';
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    body.setAttribute('data-theme', 'dark');
+                    themeToggle.textContent = '☀️';
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+        });
+    </script>
+    {% endblock %}
+</body>
+</html>
