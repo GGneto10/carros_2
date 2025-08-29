@@ -158,6 +158,77 @@
                 </div>
             </div>
             
+            <!-- Novos campos adicionados -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="{{ form.cor.id_for_label }}">Cor</label>
+                        <input type="text" 
+                               id="{{ form.cor.id_for_label }}" 
+                               name="{{ form.cor.html_name }}"
+                               value="{{ form.cor.value|default_if_none:'' }}"
+                               class="form-control"
+                               placeholder="Ex: Preto, Branco, Prata">
+                        {% if form.cor.errors %}
+                        <small class="text-danger">{{ form.cor.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="{{ form.combustivel.id_for_label }}">Combustível</label>
+                        <select id="{{ form.combustivel.id_for_label }}" 
+                                name="{{ form.combustivel.html_name }}"
+                                class="form-control">
+                            <option value="">Selecione...</option>
+                            <option value="Gasolina" {% if form.combustivel.value == "Gasolina" %}selected{% endif %}>Gasolina</option>
+                            <option value="Etanol" {% if form.combustivel.value == "Etanol" %}selected{% endif %}>Etanol</option>
+                            <option value="Flex" {% if form.combustivel.value == "Flex" %}selected{% endif %}>Flex</option>
+                            <option value="Diesel" {% if form.combustivel.value == "Diesel" %}selected{% endif %}>Diesel</option>
+                            <option value="Elétrico" {% if form.combustivel.value == "Elétrico" %}selected{% endif %}>Elétrico</option>
+                            <option value="Híbrido" {% if form.combustivel.value == "Híbrido" %}selected{% endif %}>Híbrido</option>
+                        </select>
+                        {% if form.combustivel.errors %}
+                        <small class="text-danger">{{ form.combustivel.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="{{ form.portas.id_for_label }}">Nº de Portas</label>
+                        <select id="{{ form.portas.id_for_label }}" 
+                                name="{{ form.portas.html_name }}"
+                                class="form-control">
+                            <option value="">Selecione...</option>
+                            <option value="2" {% if form.portas.value == 2 %}selected{% endif %}>2 Portas</option>
+                            <option value="3" {% if form.portas.value == 3 %}selected{% endif %}>3 Portas</option>
+                            <option value="4" {% if form.portas.value == 4 %}selected{% endif %}>4 Portas</option>
+                            <option value="5" {% if form.portas.value == 5 %}selected{% endif %}>5 Portas</option>
+                        </select>
+                        {% if form.portas.errors %}
+                        <small class="text-danger">{{ form.portas.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="{{ form.cambio.id_for_label }}">Câmbio</label>
+                        <select id="{{ form.cambio.id_for_label }}" 
+                                name="{{ form.cambio.html_name }}"
+                                class="form-control">
+                            <option value="">Selecione...</option>
+                            <option value="Manual" {% if form.cambio.value == "Manual" %}selected{% endif %}>Manual</option>
+                            <option value="Automático" {% if form.cambio.value == "Automático" %}selected{% endif %}>Automático</option>
+                            <option value="Automático Sequencial" {% if form.cambio.value == "Automático Sequencial" %}selected{% endif %}>Automático Sequencial</option>
+                            <option value="CVT" {% if form.cambio.value == "CVT" %}selected{% endif %}>CVT</option>
+                        </select>
+                        {% if form.cambio.errors %}
+                        <small class="text-danger">{{ form.cambio.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
             <div class="form-group">
                 <label for="{{ form.foto.id_for_label }}">Foto do Veículo</label>
                 <div class="photo-preview" id="photoPreview">

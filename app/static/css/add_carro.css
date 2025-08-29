@@ -111,10 +111,9 @@
   .btn-submit {
       width: 100%;
       padding: 14px;
-      background: linear-gradient(135deg, var(--header-bg) 0%, var(--nav-active) 100%);
+      background: linear-gradient(135deg, var(--form-shadow) 0%, var(--form-hover-shadow) 100%);
       border: none;
       border-radius: 8px;
-      color: white;
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
@@ -249,7 +248,7 @@
       margin-left: -15px;
   }
 
-  .col-md-6, .col-md-4 {
+  .col-md-6, .col-md-4, .col-md-3 {
       position: relative;
       width: 100%;
       padding-right: 15px;
@@ -265,6 +264,10 @@
       .col-md-4 {
           flex: 0 0 33.333333%;
           max-width: 33.333333%;
+      }
+      .col-md-3 {
+          flex: 0 0 25%;
+          max-width: 25%;
       }
   }
 
@@ -324,7 +327,7 @@
           flex-direction: column;
       }
       
-      .col-md-6, .col-md-4 {
+      .col-md-6, .col-md-4, .col-md-3 {
           max-width: 100%;
           margin-bottom: 15px;
       }
