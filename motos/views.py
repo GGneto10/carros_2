@@ -21,3 +21,7 @@ class MotosListView(ListView):
                 Q(placa__icontains=search)
             ).order_by('modelo')
         return motos
+
+class MotosDetailView(DetailView):
+    model = Moto
+    template_name = 'detalhes_motos.html'

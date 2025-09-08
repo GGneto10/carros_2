@@ -79,7 +79,7 @@
               </div>
               <div class="moto-price">R$ {{ moto.valor|floatformat:2 }}</div>
               <div class="moto-actions">
-                <a class="btn btn-primary" href="#">Detalhes</a>
+                <a class="btn btn-primary" href="{% url 'detalhes_motos' moto.id %}">Detalhes</a>
                 <a class="btn btn-secondary">Favorito</a>
               </div>
             </div>

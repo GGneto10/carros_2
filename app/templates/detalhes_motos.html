@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Cangaro Multimarcas - Detalhes da Moto{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/detalhes_motos.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+
+<!-- Carregar as template tags personalizadas -->
+{% load custom_filters %}
+
+<div class="moto-detail-container">
+  <!-- Link para voltar à lista de motos -->
+  <a href="{% url 'lista_motos' %}" class="btn btn-back">
+    <i class="fas fa-arrow-left"></i> Voltar para a Lista
+  </a>
+
+  <div class="moto-card">
+    <div class="moto-image">
+      <!-- Imagem da moto vinda do backend -->
+      {% if moto.foto %}
+      <img src="{{ moto.foto.url }}" alt="{{ moto.marca }} {{ moto.modelo }}">
+      {% else %}
+      <div class="no-image">🏍️ Imagem não disponível</div>
+      {% endif %}
+    </div>
+
+    <div class="moto-info">
+      <!-- Título com marca e modelo da moto -->
+      <h1 class="moto-title">{{ moto.marca }} {{ moto.modelo }}</h1>
+
+      <div class="moto-details-grid">
+        <!-- Detalhes da moto vindos do backend -->
+        <div class="detail-item">
+          <span class="detail-label">Ano de Fabricação</span>
+          <span class="detail-value">{{ moto.ano_fabricacao|default:"Não informado" }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Ano do Modelo</span>
+          <span class="detail-value">{{ moto.ano_modelo|default:"Não informado" }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Placa</span>
+          <span class="detail-value">{{ moto.placa|default:"Não informada" }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Quilometragem</span>
+          <span class="detail-value">
+            {% if moto.km %}
+            {{ moto.km|format_km }} km
+            {% else %}
+            Não informada
+            {% endif %}
+          </span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Combustível</span>
+          <span class="detail-value">{{ moto.combustivel|default:"Não informado" }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Cilindradas</span>
+          <span class="detail-value">
+            {% if moto.cilindradas %}
+            {{ moto.cilindradas }} cc
+            {% else %}
+            Não informadas
+            {% endif %}
+          </span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Cor</span>
+          <span class="detail-value">{{ moto.cor|default:"Não informada" }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Partida Elétrica</span>
+          <span class="detail-value">
+            {% if moto.partida_eletrica %}
+            Sim
+            {% else %}
+            Não
+            {% endif %}
+          </span>
+        </div>
+      </div>
+
+      <!-- Preço da moto formatado com o filtro personalizado -->
+      <div class="moto-price">R$ {{ moto.valor|format_currency }}</div>
+    </div>
+  </div>
+
+  <div class="buttons-container">
+    <a href="https://wa.me/5584991473506" class="btn btn-primary" target="_blank">
+      <i class="fas fa-phone"></i> Entrar em Contato
+    </a>
+
+    <!-- Botão de Editar - visível apenas para usuários logados -->
+    {% if user.is_authenticated %}
+    <a href="#" class="btn btn-warning">
+      <i class="fas fa-edit"></i> Editar Moto
+    </a>
+    {% endif %}
+
+    <button class="btn btn-danger" id="favorite-btn">
+      <i class="fas fa-heart"></i> Adicionar aos Favoritos
+    </button>
+  </div>
+</div>
+
+<script src="{% static 'js/detalhes_motos.js' %}"></script>
+{% endblock %}

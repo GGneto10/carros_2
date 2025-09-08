@@ -11,8 +11,8 @@
     --transition: all 0.3s ease;
     
     /* Variáveis para modo escuro */
-    --bg-color: #f8f9fa;
-    --text-color: #333;
+    --bg-color: #707070;
+    --text-color: #1a1919;
     --card-bg: white;
     --section-bg: transparent;
 }
@@ -22,7 +22,7 @@
     --text-color: #f0f0f0;
     --card-bg: #2d2d2d;
     --section-bg: transparent;
-    --dark: #f0f0f0;
+    --dark: #000000;
 }
 
 body {
