@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+{% block extra_css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/lista_motos.css' %}">
+{% endblock %}
+
+<body>
+  <main>
+    <div class="container">
+      <h1 class="page-title">Nossa Frota de Motos</h1>
+      
+      <div class="filters">
+        <div class="search-box">
+          <form method="GET" action="">
+            <input type="text" name="search" placeholder="Buscar moto por modelo, marca..." value="{{ request.GET.search }}">
+          </form>
+        </div>
+        <select class="filter-select" id="marca-filter">
+          <option value="">Todas as Marcas</option>
+          {% for marca in marcas %}
+            <option value="{{ marca.id }}">{{ marca.nome }}</option>
+          {% endfor %}
+        </select>
+        <select class="filter-select" id="cilindradas-filter">
+          <option value="">Todas as Cilindradas</option>
+          <option value="0-125">Até 125cc</option>
+          <option value="126-300">126cc - 300cc</option>
+          <option value="301-600">301cc - 600cc</option>
+          <option value="601+">Acima de 600cc</option>
+        </select>
+        <select class="filter-select" id="price-filter">
+          <option value="">Todos os Preços</option>
+          <option value="0-10000">Até R$ 10.000</option>
+          <option value="10000-20000">R$ 10.000 - R$ 20.000</option>
+          <option value="20000-30000">R$ 20.000 - R$ 30.000</option>
+          <option value="30000+">Acima de R$ 30.000</option>
+        </select>
+      </div>
+      
+      <div class="motos-grid" id="motos-container">
+        {% if motos %}
+          {% for moto in motos %}
+          <div class="moto-card" data-marca="{{ moto.marca.id }}" data-cilindradas="{{ moto.cilindradas }}" data-price="{{ moto.valor }}">
+            <div class="moto-image">
+              {% if moto.foto %}
+                <img src="{{ moto.foto.url }}" alt="{{ moto.marca }} {{ moto.modelo }}">
+              {% else %}
+                <div class="no-image">Imagem não disponível</div>
+              {% endif %}
+            </div>
+            <div class="moto-info">
+              <h3 class="moto-title">{{ moto.marca }} {{ moto.modelo }}</h3>
+              <div class="moto-details">
+                <div class="moto-detail">
+                  <span>Ano/Modelo:</span>
+                  <span>{{ moto.ano_fabricacao }}/{{ moto.ano_modelo }}</span>
+                </div>
+                <div class="moto-detail">
+                  <span>KM:</span>
+                  <span>{{ moto.km|floatformat:0 }}</span>
+                </div>
+                <div class="moto-detail">
+                  <span>Cilindradas:</span>
+                  <span>{{ moto.cilindradas }}cc</span>
+                </div>
+                <div class="moto-detail">
+                  <span>Combustível:</span>
+                  <span>{{ moto.combustivel|default:"Não informado" }}</span>
+                </div>
+                {% if moto.partida_eletrica %}
+                <div class="moto-detail">
+                  <span>Partida:</span>
+                  <span>Elétrica</span>
+                </div>
+                {% endif %}
+              </div>
+              <div class="moto-price">R$ {{ moto.valor|floatformat:2 }}</div>
+              <div class="moto-actions">
+                <a class="btn btn-primary" href="#">Detalhes</a>
+                <a class="btn btn-secondary">Favorito</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <div class="empty-state">
+            <p>Nenhuma moto encontrada.</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </main>
+
+  <script src="{% static 'js/lista_motos.js' %}"></script>
+</body>
+</html>
+{% endblock %}

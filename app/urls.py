@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from carros.views import CarrosListView, CarrosDetailView, AddCarroCreateView, AtualizarCarroUpdateView, DeletarCarroDeleteView, HomeView
+from motos.views import MotosListView
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -25,6 +26,7 @@ from contas.views import cadastro_view, login_view, logout_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('lista/', CarrosListView.as_view(), name='lista_carros'),
+    path('lista/motos/', MotosListView.as_view(), name='lista_motos'),
     path('', RedirectView.as_view(url='home/')),
     path('home/', HomeView.as_view(), name='home'),
     path('carros/detalhes/<int:pk>/', CarrosDetailView.as_view(), name='detalhes_carros'),

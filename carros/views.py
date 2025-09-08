@@ -1,4 +1,4 @@
-from carros.models import Carro, Marca
+from carros.models import Carro,  MarcaCarro
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from .forms import CarroModelForm
 from django.db.models import Q, Count, Min, Max
@@ -75,7 +75,7 @@ class HomeView(TemplateView):
         carros_com_foto = Carro.objects.exclude(foto__isnull=True).exclude(foto='')[:12]
         
         # Marcas com mais carros
-        marcas_populares = Marca.objects.annotate(
+        marcas_populares = MarcaCarro.objects.annotate(
             total_carros=Count('marca_carro')
         ).filter(total_carros__gt=0).order_by('-total_carros')[:10]
         
@@ -85,7 +85,7 @@ class HomeView(TemplateView):
             'carros_com_foto': Carro.objects.exclude(foto__isnull=True).exclude(foto='').count(),
             'preco_minimo': Carro.objects.aggregate(Min('valor'))['valor__min'],
             'preco_maximo': Carro.objects.aggregate(Max('valor'))['valor__max'],
-            'marca_mais_popular': Marca.objects.annotate(
+            'marca_mais_popular': MarcaCarro.objects.annotate(
                 total=Count('marca_carro')
             ).order_by('-total').first(),
         }
@@ -108,3 +108,4 @@ class HomeView(TemplateView):
         })
         
         return context
+    
