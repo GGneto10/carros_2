@@ -6,7 +6,7 @@ from .forms import MotoModelForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
-
+from .mixins import MarcaMotoMixin
 
 class MotosListView(ListView): 
     model = Moto
@@ -33,10 +33,21 @@ class MotosDetailView(DetailView):
 
 #Adicionar, Atualizar e Deletar Motos:
 
-
 @method_decorator(login_required(login_url='login'), name='dispatch')
-class AddMotoCreateView(CreateView):
+class AddMotoCreateView(MarcaMotoMixin, CreateView):
     model = Moto 
     form_class = MotoModelForm
     template_name = 'add_moto.html'
     success_url = '/lista_motos/'
+
+'''
+#Fazer a ADIÇÃO dos Templates, com Html, css e JS dps, e adicionar um href para o UpdateMotoView na detalhes_motos.html.
+
+
+@method_decorator(login_required(login_url='login'), name='dispatch')
+class UpdateMotoView(MarcaMotoMixin, UpdateView):
+    model = Moto 
+    form_class = MotoModelForm
+    template_name = 'update_moto.html'
+    success_url = '/lista_motos/'
+'''

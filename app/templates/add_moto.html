@@ -16,6 +16,7 @@
             <p>Preencha todos os campos abaixo para registrar sua moto</p>
         </div>
 
+        <!-- Seção de erros melhorada (igual à de carros) -->
         {% if form.errors %}
         <div class="alert-danger">
             <strong>Por favor, corrija os seguintes erros:</strong>
@@ -184,8 +185,9 @@
                 </div>
             </div>
             
+            <!-- Campos organizados em 4 colunas como na tela de carros -->
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="{{ form.cor.id_for_label }}">Cor</label>
                         <input type="text" 
@@ -199,7 +201,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="{{ form.combustivel.id_for_label }}">Combustível</label>
                         <select id="{{ form.combustivel.id_for_label }}" 
@@ -215,7 +217,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="{{ form.partida_eletrica.id_for_label }}">Partida Elétrica</label>
                         <select id="{{ form.partida_eletrica.id_for_label }}" 
@@ -226,6 +228,21 @@
                         </select>
                         {% if form.partida_eletrica.errors %}
                         <small class="text-danger">{{ form.partida_eletrica.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="{{ form.cambio.id_for_label }}">Câmbio</label>
+                        <select id="{{ form.cambio.id_for_label }}" 
+                                name="{{ form.cambio.html_name }}"
+                                class="form-control">
+                            <option value="">Selecione...</option>
+                            <option value="Manual" {% if form.cambio.value == "Manual" %}selected{% endif %}>Manual</option>
+                            <option value="Automático" {% if form.cambio.value == "Automático" %}selected{% endif %}>Automático</option>
+                        </select>
+                        {% if form.cambio.errors %}
+                        <small class="text-danger">{{ form.cambio.errors|striptags }}</small>
                         {% endif %}
                     </div>
                 </div>
