@@ -2,6 +2,11 @@ from motos.models import Moto, MarcaMoto
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.views.generic import ListView
 from django.db.models import Q
+from .forms import MotoModelForm
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.urls import reverse_lazy
+
 
 class MotosListView(ListView): 
     model = Moto
@@ -25,3 +30,13 @@ class MotosListView(ListView):
 class MotosDetailView(DetailView):
     model = Moto
     template_name = 'detalhes_motos.html'
+
+#Adicionar, Atualizar e Deletar Motos:
+
+
+@method_decorator(login_required(login_url='login'), name='dispatch')
+class AddMotoCreateView(CreateView):
+    model = Moto 
+    form_class = MotoModelForm
+    template_name = 'add_moto.html'
+    success_url = '/lista_motos/'

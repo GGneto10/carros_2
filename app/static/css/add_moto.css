@@ -1,0 +1,360 @@
+:root {
+    --bg-color: #fff;
+    --text-color: #333;
+    --header-bg: #ff4081;  /* Rosa */
+    --nav-bg: #ff4081;     /* Rosa */
+    --nav-hover: #f8bbd0;  /* Rosa claro */
+    --nav-active: #e91e63;  /* Rosa escuro */
+    --nav-active-hover: #ad1457;
+    --footer-bg: #f5f5f5;
+    --footer-text: #333;
+    --accent-color: #e91e63; /* Rosa escuro para destaques */
+    --accent-secondary: #2196F3; /* Azul para contraste */
+    --accent-tertiary: #4CAF50; /* Verde para elementos especiais */
+    --card-bg: #fff;
+    --card-border: #e0e0e0;
+    --card-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    --card-hover-shadow: 0 6px 12px rgba(233, 30, 99, 0.15);
+}
+
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e6e6e6;
+    --header-bg: #b71c1c;    /* Vermelho escuro */
+    --nav-bg: #b71c1c;       /* Vermelho escuro */
+    --nav-hover: #424242;    /* Cinza escuro */
+    --nav-active: #7b1fa2;   /* Roxo para contraste */
+    --nav-active-hover: #6a1b9a;
+    --footer-bg: #1a1a1a;    /* Quase preto */
+    --footer-text: #e6e6e6;
+    --accent-color: #f44336; /* Vermelho para destaques */
+    --accent-secondary: #64B5F6; /* Azul claro */
+    --accent-tertiary: #81C784; /* Verde claro */
+    --card-bg: #1e1e1e;
+    --card-border: #333;
+    --card-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    --card-hover-shadow: 0 6px 12px rgba(244, 67, 54, 0.3);
+}
+
+/* Estilos específicos para a lista de motos */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-secondary) 100%);
+    padding: 20px;
+    border-radius: 12px;
+    color: white;
+}
+
+.page-title {
+    margin: 0;
+    color: white;
+    font-size: 28px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.motos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.moto-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--card-border);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.moto-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--card-hover-shadow);
+}
+
+.moto-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-secondary));
+}
+
+.moto-image {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: linear-gradient(45deg, #f5f5f5, #e0e0e0);
+    position: relative;
+}
+
+.moto-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.moto-card:hover .moto-image img {
+    transform: scale(1.05);
+}
+
+.moto-info {
+    padding: 20px;
+}
+
+.moto-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 15px;
+    color: var(--accent-color);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.moto-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--accent-secondary);
+    border-radius: 2px;
+}
+
+.moto-details {
+    margin-bottom: 20px;
+}
+
+.moto-detail {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 6px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.moto-detail:last-child {
+    border-bottom: none;
+}
+
+.moto-detail span:first-child {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.moto-detail span:last-child {
+    font-weight: 600;
+    color: var(--accent-secondary);
+}
+
+.moto-price {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--accent-color);
+    text-align: center;
+    margin: 15px 0;
+    padding: 10px;
+    background: linear-gradient(135deg, rgba(233, 30, 99, 0.1) 0%, rgba(33, 150, 243, 0.1) 100%);
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-color);
+}
+
+.moto-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--nav-active) 100%);
+    color: white;
+    box-shadow: 0 4px 8px rgba(233, 30, 99, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(233, 30, 99, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 2px solid var(--accent-secondary);
+    color: var(--accent-secondary);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-secondary:hover {
+    background: var(--accent-secondary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
+}
+
+.filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+    background: linear-gradient(135deg, rgba(233, 30, 99, 0.05) 0%, rgba(33, 150, 243, 0.05) 100%);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(233, 30, 99, 0.1);
+}
+
+.search-box {
+    flex: 1;
+    min-width: 250px;
+    position: relative;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 15px 12px 45px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23999' width='24px' height='24px'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    background-size: 20px;
+}
+
+.search-box input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.2);
+    outline: none;
+}
+
+.filter-select {
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 180px;
+}
+
+.filter-select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.2);
+    outline: none;
+}
+
+.dark-mode .filter-select,
+.dark-mode .search-box input {
+    background-color: #2a2a2a;
+    color: white;
+    border-color: #444;
+}
+
+.dark-mode .search-box input {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ccc' width='24px' height='24px'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3C/svg%3E");
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 40px;
+    color: #888;
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, rgba(233, 30, 99, 0.05) 0%, rgba(33, 150, 243, 0.05) 100%);
+    border-radius: 12px;
+    border: 2px dashed #ddd;
+}
+
+.empty-state p {
+    font-size: 18px;
+    margin: 0;
+    color: var(--text-color);
+}
+
+.no-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #888;
+    background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+    font-style: italic;
+}
+
+.partida-eletrica {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent-tertiary) 0%, #388E3C 100%);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+    .filters {
+        flex-direction: column;
+    }
+    
+    .search-box, .filter-select {
+        width: 100%;
+        min-width: unset;
+    }
+    
+    .page-header {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+    
+    .page-header .btn {
+        align-self: center;
+        margin-top: 15px;
+    }
+    
+    .moto-actions {
+        flex-direction: column;
+    }
+    
+    .moto-detail {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .moto-detail span:first-child {
+        font-weight: 600;
+    }
+}

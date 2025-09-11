@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Cadastrar Moto - Cangaro Multimarcas{% endblock %}
+
+{% block extra_css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/add_moto.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h2>Cadastrar Nova Moto</h2>
+            <p>Preencha todos os campos abaixo para registrar sua moto</p>
+        </div>
+
+        {% if form.errors %}
+        <div class="alert-danger">
+            <strong>Por favor, corrija os seguintes erros:</strong>
+            <ul>
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li><strong>{{ field|title }}:</strong> {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+            {% csrf_token %}
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="{{ form.marca.id_for_label }}">Marca da Moto</label>
+                        <select id="{{ form.marca.id_for_label }}" 
+                                name="{{ form.marca.html_name }}"
+                                class="form-control"
+                                required>
+                            <option value="">Selecione a marca...</option>
+                            {% for marca in marcas %}
+                                <option value="{{ marca.id }}" {% if form.marca.value == marca.id %}selected{% endif %}>{{ marca.name }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if form.marca.errors %}
+                        <small class="text-danger">{{ form.marca.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="{{ form.modelo.id_for_label }}">Modelo da Moto</label>
+                        <input type="text" 
+                               id="{{ form.modelo.id_for_label }}" 
+                               name="{{ form.modelo.html_name }}"
+                               value="{{ form.modelo.value|default_if_none:'' }}"
+                               class="form-control"
+                               placeholder="Ex: CG 160, Biz, Factor 125"
+                               required>
+                        {% if form.modelo.errors %}
+                        <small class="text-danger">{{ form.modelo.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.ano_fabricacao.id_for_label }}">Ano de Fabricação</label>
+                        <input type="number" 
+                               id="{{ form.ano_fabricacao.id_for_label }}" 
+                               name="{{ form.ano_fabricacao.html_name }}"
+                               value="{{ form.ano_fabricacao.value|default_if_none:'' }}"
+                               class="form-control"
+                               min="1900"
+                               max="{% now 'Y' %}"
+                               step="1"
+                               placeholder="{% now 'Y' %}">
+                        {% if form.ano_fabricacao.errors %}
+                        <small class="text-danger">{{ form.ano_fabricacao.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.ano_modelo.id_for_label }}">Ano do Modelo</label>
+                        <input type="number" 
+                               id="{{ form.ano_modelo.id_for_label }}" 
+                               name="{{ form.ano_modelo.html_name }}"
+                               value="{{ form.ano_modelo.value|default_if_none:'' }}"
+                               class="form-control"
+                               min="1900"
+                               max="{% now 'Y' %}"
+                               step="1"
+                               placeholder="{% now 'Y' %}">
+                        {% if form.ano_modelo.errors %}
+                        <small class="text-danger">{{ form.ano_modelo.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.placa.id_for_label }}">Placa (Opcional)</label>
+                        <input type="text" 
+                               id="{{ form.placa.id_for_label }}" 
+                               name="{{ form.placa.html_name }}"
+                               value="{{ form.placa.value|default_if_none:'' }}"
+                               class="form-control"
+                               placeholder="Ex: ABC1D23">
+                        {% if form.placa.errors %}
+                        <small class="text-danger">{{ form.placa.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.valor.id_for_label }}">Valor (R$)</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">R$</span>
+                            </div>
+                            <input type="number" 
+                                   id="{{ form.valor.id_for_label }}" 
+                                   name="{{ form.valor.html_name }}"
+                                   value="{{ form.valor.value|default_if_none:'' }}"
+                                   class="form-control"
+                                   step="0.01"
+                                   min="0"
+                                   placeholder="0.00">
+                        </div>
+                        {% if form.valor.errors %}
+                        <small class="text-danger">{{ form.valor.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.km.id_for_label }}">Quilometragem (Km)</label>
+                        <div class="input-group">
+                            <input type="number" 
+                                   id="{{ form.km.id_for_label }}" 
+                                   name="{{ form.km.html_name }}"
+                                   value="{{ form.km.value|default_if_none:'' }}"
+                                   class="form-control"
+                                   min="0"
+                                   step="1"
+                                   placeholder="0">
+                            <div class="input-group-append">
+                                <span class="input-group-text">km</span>
+                            </div>
+                        </div>
+                        {% if form.km.errors %}
+                        <small class="text-danger">{{ form.km.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.cilindradas.id_for_label }}">Cilindradas (cc)</label>
+                        <div class="input-group">
+                            <input type="number" 
+                                   id="{{ form.cilindradas.id_for_label }}" 
+                                   name="{{ form.cilindradas.html_name }}"
+                                   value="{{ form.cilindradas.value|default_if_none:'' }}"
+                                   class="form-control"
+                                   min="0"
+                                   step="1"
+                                   placeholder="Ex: 125, 160, 300">
+                            <div class="input-group-append">
+                                <span class="input-group-text">cc</span>
+                            </div>
+                        </div>
+                        {% if form.cilindradas.errors %}
+                        <small class="text-danger">{{ form.cilindradas.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.cor.id_for_label }}">Cor</label>
+                        <input type="text" 
+                               id="{{ form.cor.id_for_label }}" 
+                               name="{{ form.cor.html_name }}"
+                               value="{{ form.cor.value|default_if_none:'' }}"
+                               class="form-control"
+                               placeholder="Ex: Preto, Branco, Vermelho">
+                        {% if form.cor.errors %}
+                        <small class="text-danger">{{ form.cor.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.combustivel.id_for_label }}">Combustível</label>
+                        <select id="{{ form.combustivel.id_for_label }}" 
+                                name="{{ form.combustivel.html_name }}"
+                                class="form-control">
+                            <option value="">Selecione...</option>
+                            <option value="Gasolina" {% if form.combustivel.value == "Gasolina" %}selected{% endif %}>Gasolina</option>
+                            <option value="Etanol" {% if form.combustivel.value == "Etanol" %}selected{% endif %}>Etanol</option>
+                            <option value="Flex" {% if form.combustivel.value == "Flex" %}selected{% endif %}>Flex</option>
+                        </select>
+                        {% if form.combustivel.errors %}
+                        <small class="text-danger">{{ form.combustivel.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="{{ form.partida_eletrica.id_for_label }}">Partida Elétrica</label>
+                        <select id="{{ form.partida_eletrica.id_for_label }}" 
+                                name="{{ form.partida_eletrica.html_name }}"
+                                class="form-control">
+                            <option value="True" {% if form.partida_eletrica.value %}selected{% endif %}>Sim</option>
+                            <option value="False" {% if not form.partida_eletrica.value %}selected{% endif %}>Não</option>
+                        </select>
+                        {% if form.partida_eletrica.errors %}
+                        <small class="text-danger">{{ form.partida_eletrica.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.foto.id_for_label }}">Foto da Moto</label>
+                <div class="photo-preview" id="photoPreview">
+                    <span>🏍️</span>
+                    <p class="text-muted">Nenhuma imagem selecionada</p>
+                </div>
+                <div class="custom-file">
+                    <input type="file" 
+                           class="custom-file-input" 
+                           id="{{ form.foto.id_for_label }}" 
+                           name="{{ form.foto.html_name }}"
+                           accept="image/*">
+                    <label class="custom-file-label" for="{{ form.foto.id_for_label }}">Selecione uma imagem</label>
+                </div>
+                {% if form.foto.errors %}
+                <small class="text-danger">{{ form.foto.errors|striptags }}</small>
+                {% endif %}
+                <small class="form-text text-muted">Formatos aceitos: JPG, PNG. Tamanho máximo: 5MB.</small>
+            </div>
+            
+            <button type="submit" class="btn-submit">
+                Cadastrar Moto
+            </button>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'js/add_moto.js' %}"></script>
+{% endblock %}
