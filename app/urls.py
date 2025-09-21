@@ -17,26 +17,29 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from carros.views import CarrosListView, CarrosDetailView, AddCarroCreateView, AtualizarCarroUpdateView, DeletarCarroDeleteView, HomeView
-from motos.views import MotosListView, MotosDetailView, AddMotoCreateView
+from motos.views import MotosListView, MotosDetailView, AddMotoCreateView, AtualizarMotoUpdateView, DeletarMotoDeleteView
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 from contas.views import cadastro_view, login_view, logout_view
 
 urlpatterns = [
+    path('', RedirectView.as_view(url='home/')),
+    path('home/', HomeView.as_view(), name='home'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='deslogar'),
     path('admin/', admin.site.urls),
+
     path('lista/', CarrosListView.as_view(), name='lista_carros'),
     path('lista/motos/', MotosListView.as_view(), name='lista_motos'),
     path('detalhes/motos/<int:pk>/', MotosDetailView.as_view(), name='detalhes_motos'),
-    path('', RedirectView.as_view(url='home/')),
-    path('home/', HomeView.as_view(), name='home'),
     path('carros/detalhes/<int:pk>/', CarrosDetailView.as_view(), name='detalhes_carros'),
     path('add/carros/', AddCarroCreateView.as_view(), name='add_carro'),
     path('add/motos/', AddMotoCreateView.as_view(), name='add_moto'),
     path('cadastro/', cadastro_view, name='cadastro'),
-    path('login/', login_view, name='login'),
-    path('logout/', logout_view, name='deslogar'),
     path('carros/<int:pk>/update/', AtualizarCarroUpdateView.as_view(), name='atualizar_carro'),
+    path('motos/<int:pk>/update/', AtualizarMotoUpdateView.as_view(), name='atualizar_moto'),
     path('carros/<int:pk>/delete/', DeletarCarroDeleteView.as_view(), name='deletar_carro'),
+    path('motos/<int:pk>/delete/', DeletarMotoDeleteView.as_view(), name='deletar_moto'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

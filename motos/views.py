@@ -40,14 +40,17 @@ class AddMotoCreateView(MarcaMotoMixin, CreateView):
     template_name = 'add_moto.html'
     success_url = '/lista_motos/'
 
-'''
-#Fazer a ADIÇÃO dos Templates, com Html, css e JS dps, e adicionar um href para o UpdateMotoView na detalhes_motos.html.
-
-
 @method_decorator(login_required(login_url='login'), name='dispatch')
-class UpdateMotoView(MarcaMotoMixin, UpdateView):
+class AtualizarMotoUpdateView(MarcaMotoMixin, UpdateView):
     model = Moto 
     form_class = MotoModelForm
-    template_name = 'update_moto.html'
-    success_url = '/lista_motos/'
-'''
+    template_name = 'atualizar_moto.html'
+
+    def get_success_url(self):
+        return reverse_lazy('detalhes_motos', kwargs={'pk': self.object.pk})
+    
+@method_decorator(login_required(login_url='login'), name='dispatch')
+class DeletarMotoDeleteView(DeleteView):
+    model = Moto
+    template_name = 'deletar_moto.html'
+    success_url = reverse_lazy('lista_motos')

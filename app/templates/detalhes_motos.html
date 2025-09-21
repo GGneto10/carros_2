@@ -107,7 +107,7 @@
 
     <!-- Botão de Editar - visível apenas para usuários logados -->
     {% if user.is_authenticated %}
-    <a href="#" class="btn btn-warning">
+    <a href="{% url 'atualizar_moto' pk=object.id %}" class="btn btn-warning">
       <i class="fas fa-edit"></i> Editar Moto
     </a>
     {% endif %}
