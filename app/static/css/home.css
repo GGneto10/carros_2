@@ -11,15 +11,15 @@
     --transition: all 0.3s ease;
     
     /* Variáveis para modo escuro */
-    --bg-color: #707070;
-    --text-color: #1a1919;
+    --bg-color: white;
+    --text-color: #white;
     --card-bg: white;
     --section-bg: transparent;
 }
 
-[data-theme="dark"] {
+.dark-mode {
     --bg-color: #1a1a1a;
-    --text-color: #f0f0f0;
+    --text-color: white;
     --card-bg: #2d2d2d;
     --section-bg: transparent;
     --dark: #000000;
@@ -189,7 +189,6 @@ h1, h2, h3, h4, h5 {
 
 .car-info h3 {
     font-size: 1.4rem;
-    color: var(--text-color);
 }
 
 .car-info p {

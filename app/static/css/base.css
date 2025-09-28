@@ -92,6 +92,10 @@ nav ul li a {
   border-radius: 4px;
 }
 
+a {
+  text-decoration: none;
+}
+
 nav ul li a:hover {
   background-color: var(--nav-hover);
 }

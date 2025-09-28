@@ -1,8 +1,46 @@
+:root {
+    --bg-color: #fff;
+    --text-color: #333;
+    --header-bg: #ff4081;  /* Rosa */
+    --nav-bg: #ff4081;     /* Rosa */
+    --nav-hover: #f8bbd0;  /* Rosa claro */
+    --nav-active: #e91e63;  /* Rosa escuro */
+    --nav-active-hover: #ad1457;
+    --footer-bg: #f5f5f5;
+    --footer-text: #333;
+    --accent-color: #e91e63; /* Rosa escuro para destaques */
+    --card-bg: #fff;
+    --card-border: #e0e0e0;
+    --card-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e6e6e6;
+    --header-bg: #b71c1c;    /* Vermelho escuro */
+    --nav-bg: #b71c1c;       /* Vermelho escuro */
+    --nav-hover: #424242;    /* Cinza escuro */
+    --nav-active: #7b1fa2;   /* Roxo para contraste */
+    --nav-active-hover: #6a1b9a;
+    --footer-bg: #1a1a1a;    /* Quase preto */
+    --footer-text: #e6e6e6;
+    --accent-color: #f44336; /* Vermelho para destaques */
+    --card-bg: #1e1e1e;
+    --card-border: #333;
+    --card-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
 /* Estilos específicos para a lista de motos */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .page-title {
